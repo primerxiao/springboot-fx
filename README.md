@@ -3,7 +3,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.roskenet/springboot-javafx-support/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.roskenet/springboot-javafx-support)
 [![ReadTheDocs](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](https://springboot-javafx-support.readthedocs.io)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/roskenet/springboot-javafx-support/blob/master/LICENSE)
-# springboot-javafx-support
+# springboot-fx
 Attention:
 The current master is for Spring Boot 2 and Spring Framework 5.
 
