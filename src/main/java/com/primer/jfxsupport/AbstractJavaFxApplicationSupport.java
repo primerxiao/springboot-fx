@@ -64,6 +64,23 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         return GUIState.getSystemTray();
     }
 
+    public static void showView(Class<? extends AbstractFxmlView> window, Modality mode) {
+        AbstractFxmlView view = applicationContext.getBean(window);
+        Stage newStage = new Stage();
+        Scene newScene;
+        if (view.getView().getScene() != null) {
+            newScene = view.getView().getScene();
+        } else {
+            newScene = new Scene(view.getView());
+        }
+        newStage.setScene(newScene);
+        newStage.initModality(mode);
+        newStage.initOwner(getStage());
+        newStage.setTitle(view.getDefaultTitle());
+        newStage.initStyle(view.getDefaultStyle());
+        newStage.showAndWait();
+    }
+
     private void loadIcons(ConfigurableApplicationContext ctx) {
         try {
             final List<String> fsImages = PropertyReaderHelper.get(ctx.getEnvironment(), Constant.KEY_APPICONS);

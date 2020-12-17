@@ -39,7 +39,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void openVersionHelper(ActionEvent actionEvent) {
-        MainApplication.showInitialView(VersionHelperView.class);
+        MainApplication.showView(VersionHelperView.class,Modality.NONE);
     }
 
 }

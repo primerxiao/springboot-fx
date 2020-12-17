@@ -2,6 +2,7 @@ package com.primer;
 
 import com.primer.jfxsupport.AbstractJavaFxApplicationSupport;
 import com.primer.view.BatchHelperView;
+import com.primer.view.MainMenuView;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -18,7 +19,7 @@ import java.io.IOException;
 public class MainApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) throws IOException {
-        launch(MainApplication.class, BatchHelperView.class, args);
+        launch(MainApplication.class, MainMenuView.class, args);
         //Platform.setImplicitExit(false);
     }
 }
