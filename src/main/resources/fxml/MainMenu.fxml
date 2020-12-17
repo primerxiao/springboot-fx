@@ -1,40 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="150.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.primer.controller.MainMenuController">
-    <children>
-        <VBox layoutX="2.0" layoutY="1.0" prefHeight="150.0" prefWidth="150.0">
-            <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-                <JFXButton onAction="#openBatchHelper" prefHeight="30.0" prefWidth="130.0" text="批次助手" textFill="#2a6531" />
-                <JFXButton onAction="#openLogHelper" prefHeight="30.0" prefWidth="130.0" text="日志助手" textFill="#2a6531" />
-                <JFXButton onAction="#openEsbHelper" prefHeight="30.0" prefWidth="130.0" text="Esb助手" textFill="#2a6531" />
-                <JFXButton onAction="#openVersionHelper" prefHeight="30.0" prefWidth="130.0" text="提版助手" textFill="#2a6531" />
-            </children>
-        </VBox>
-    </children>
-</AnchorPane>
+
+<StackPane fx:id="stackPane" fx:controller="com.primer.controller.MainMenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+      <FlowPane fx:id="flowPane" prefHeight="200.0" prefWidth="200.0" />
+</StackPane>
