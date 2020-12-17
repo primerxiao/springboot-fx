@@ -1,12 +1,8 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import de.felixroske.jfxtest.*;
-import javafx.scene.image.Image;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.*;
 import org.testfx.api.FxToolkit;
-
-import java.util.*;
 
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;

@@ -1,6 +1,7 @@
 package de.felixroske.jfxtest;
 
-import de.felixroske.jfxsupport.*;
+import com.primer.jfxsupport.AbstractJavaFxApplicationSupport;
+import com.primer.jfxsupport.SplashScreen;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.context.*;
 

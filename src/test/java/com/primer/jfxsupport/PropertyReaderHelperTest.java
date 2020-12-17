@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import org.hamcrest.collection.*;
 import org.junit.jupiter.api.*;

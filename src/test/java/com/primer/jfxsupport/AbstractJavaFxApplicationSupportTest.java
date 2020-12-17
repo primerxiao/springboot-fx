@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import de.felixroske.jfxtest.*;
 import org.hamcrest.*;

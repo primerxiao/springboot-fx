@@ -1,6 +1,6 @@
 package de.felixroske.jfxtest;
 
-import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
+import com.primer.jfxsupport.AbstractJavaFxApplicationSupport;
 
 public class TestApp extends AbstractJavaFxApplicationSupport {
 

@@ -1,6 +1,6 @@
 package de.felixroske.jfxtest;
 
-import de.felixroske.jfxsupport.*;
+import com.primer.jfxsupport.AbstractFxmlView;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
 import org.springframework.beans.*;
