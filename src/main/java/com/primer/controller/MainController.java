@@ -4,7 +4,7 @@ import com.primer.common.annotation.AppAutoConfig;
 import com.primer.common.annotation.AppDictAnnotation;
 import com.primer.entity.AppConfig;
 import com.primer.entity.DbConfig;
-import de.felixroske.jfxsupport.FXMLController;
+import com.primer.jfxsupport.FXMLController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,7 +16,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 

@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import org.slf4j.*;
 import org.springframework.boot.*;

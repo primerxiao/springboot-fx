@@ -2,8 +2,7 @@ package com.primer;
 
 import com.primer.common.config.FxBaseSplashScreen;
 import com.primer.view.MainView;
-import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
-import javafx.application.Platform;
+import com.primer.jfxsupport.AbstractJavaFxApplicationSupport;
 import javafx.stage.StageStyle;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import javafx.scene.Parent;
 import javafx.scene.control.ProgressBar;

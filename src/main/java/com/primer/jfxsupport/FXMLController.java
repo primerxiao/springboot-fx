@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

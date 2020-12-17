@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 import java.util.ArrayList;
 import java.util.List;

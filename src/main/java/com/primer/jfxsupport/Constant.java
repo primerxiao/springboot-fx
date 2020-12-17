@@ -1,4 +1,4 @@
-package de.felixroske.jfxsupport;
+package com.primer.jfxsupport;
 
 class Constant {
 	public final static String KEY_STAGE_STYLE = "javafx.stage.style";

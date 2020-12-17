@@ -1,7 +1,7 @@
 package com.primer.view;
 
-import de.felixroske.jfxsupport.AbstractFxmlView;
-import de.felixroske.jfxsupport.FXMLView;
+import com.primer.jfxsupport.AbstractFxmlView;
+import com.primer.jfxsupport.FXMLView;
 
 /**
  * app的主界面视图

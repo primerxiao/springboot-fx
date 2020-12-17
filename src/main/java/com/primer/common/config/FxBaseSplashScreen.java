@@ -1,6 +1,6 @@
 package com.primer.common.config;
 
-import de.felixroske.jfxsupport.SplashScreen;
+import com.primer.jfxsupport.SplashScreen;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ProgressBar;
