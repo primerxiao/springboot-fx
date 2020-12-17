@@ -8,9 +8,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>springboot-javafx-support</name>
-    <description>Support for Spring Boot and JavaFX 11</description>
-    <url></url>
+    <name>springboot-fx</name>
+    <description>Support for Spring Boot 2.3.0 and JavaFX 11</description>
 
     <properties>
         <fx.version>11.0.2</fx.version>
@@ -39,11 +38,6 @@
         <!--javafx相关模块-->
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${fx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${fx.version}</version>
         </dependency>
@@ -60,6 +54,11 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
+            <version>${fx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
             <version>${fx.version}</version>
         </dependency>
         <!--spring相关-->
@@ -146,6 +145,32 @@
             <artifactId>commons-text</artifactId>
             <version>1.8</version>
         </dependency>
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>build210</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-vfs</groupId>
+            <artifactId>commons-vfs</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gitlab4j</groupId>
+            <artifactId>gitlab4j-api</artifactId>
+            <version>4.15.5</version>
+        </dependency>
+        <!--样式相关-->
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
         <!--功能相关-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -177,23 +202,6 @@
             <version>${junit-platform.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>testfx-core</artifactId>
-            <version>${testfx.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>testfx-junit5</artifactId>
-            <version>${testfx.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>openjfx-monocle</artifactId>
-            <version>8u76-b04</version>
-        </dependency>
     </dependencies>
 
     <distributionManagement>
@@ -208,6 +216,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.primer.MainApplication</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -227,96 +238,6 @@
                     <launcher>launcher</launcher>
                     <mainClass>hellofx/org.openjfx.App</mainClass>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.3</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.3</version>
-            </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.1.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.4.201502262128</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit-platform.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.7.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

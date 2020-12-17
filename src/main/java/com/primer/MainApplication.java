@@ -1,10 +1,7 @@
 package com.primer;
 
-import com.primer.common.config.FxBaseSplashScreen;
-import com.primer.view.MainView;
-import de.felixroske.jfxsupport.AbstractJavaFxApplicationSupport;
-import javafx.application.Platform;
-import javafx.stage.StageStyle;
+import com.primer.jfxsupport.AbstractJavaFxApplicationSupport;
+import com.primer.view.BatchHelperView;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -13,6 +10,7 @@ import java.io.IOException;
 
 /**
  * app启动类
+ *
  * @author HIFeng
  */
 @SpringBootApplication
@@ -20,10 +18,7 @@ import java.io.IOException;
 public class MainApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) throws IOException {
+        launch(MainApplication.class, BatchHelperView.class, args);
         //Platform.setImplicitExit(false);
-
-        launch(MainApplication.class, MainView.class, new FxBaseSplashScreen("/image/timg.gif"), args);
-        MainApplication.getStage().setResizable(false);
-        MainApplication.getStage().initStyle(StageStyle.UNDECORATED);
     }
 }

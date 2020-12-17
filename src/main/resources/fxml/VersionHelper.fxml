@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.primer.controller.VersionHelperController">
+    <TextField fx:id="gitAccount" layoutX="39.0" layoutY="37.0" prefHeight="23.0" prefWidth="178.0" promptText="git账号" />
+    <TextField fx:id="gitPassword" layoutX="39.0" layoutY="70.0" prefHeight="23.0" prefWidth="178.0" promptText="git密码" />
+    <Button layoutX="38.0" layoutY="367.0" mnemonicParsing="false" onAction="#saveConfig" prefHeight="23.0" prefWidth="304.0" text="保存配置" />
+    <TextField fx:id="remindAccount" layoutX="39.0" layoutY="200.0" prefHeight="23.0" prefWidth="178.0" promptText="remine账号" />
+    <TextField fx:id="remindPassword" layoutX="39.0" layoutY="234.0" prefHeight="23.0" prefWidth="178.0" promptText="remine密码" />
+    <TextField fx:id="sourceBranch" layoutX="39.0" layoutY="133.0" prefHeight="23.0" prefWidth="178.0" promptText="合并源分支" />
+    <TextField fx:id="targetBranch" layoutX="39.0" layoutY="166.0" prefHeight="23.0" prefWidth="178.0" promptText="合并目标分支" />
+    <Label fx:id="tip" layoutX="39.0" layoutY="12.0" prefHeight="15.0" prefWidth="320.0" />
+    <TextField fx:id="startDate" layoutX="39.0" layoutY="298.0" prefHeight="23.0" prefWidth="241.0" promptText="开始日期,格式：yyyy-MM-dd HH::mm:ss" />
+    <TextField fx:id="endDate" layoutX="39.0" layoutY="330.0" prefHeight="23.0" prefWidth="241.0" promptText="结束日期,格式：yyyy-MM-dd HH::mm:ss" />
+    <Button layoutX="284.0" layoutY="101.0" mnemonicParsing="false" onAction="#createMrRequest" prefHeight="23.0" prefWidth="90.0" text="gitlab合并" />
+    <Button layoutX="284.0" layoutY="133.0" minWidth="69.0" mnemonicParsing="false" onAction="#commitRemind" prefHeight="23.0" prefWidth="90.0" text="remind提单" />
+    <Button layoutX="284.0" layoutY="34.0" mnemonicParsing="false" onAction="#loadCommitInfo" prefHeight="23.0" prefWidth="90.0" text="加载数据" />
+    <Button layoutX="284.0" layoutY="70.0" mnemonicParsing="false" onAction="#showCommitInfo" prefHeight="23.0" prefWidth="90.0" text="查看提交" />
+    <ChoiceBox fx:id="mileStone" layoutX="103.0" layoutY="101.0" prefHeight="23.0" prefWidth="114.0" />
+   <Label layoutX="38.0" layoutY="101.0" prefHeight="23.0" prefWidth="65.0" text="milestone:" />
+   <Button layoutX="287.0" layoutY="298.0" mnemonicParsing="false" onAction="#setTimeLast30m" prefHeight="23.0" prefWidth="55.0" text="L30M" />
+   <Button layoutX="286.0" layoutY="330.0" mnemonicParsing="false" onAction="#setTimeLast3H" prefHeight="23.0" prefWidth="55.0" text="L3H" />
+   <Button layoutX="250.0" layoutY="235.0" mnemonicParsing="false" onAction="#setPsdBranch" prefHeight="23.0" prefWidth="90.0" text="配置为普税贷" />
+   <Button layoutX="250.0" layoutY="268.0" mnemonicParsing="false" onAction="#setYedBranch" prefHeight="23.0" prefWidth="90.0" text="配置为优e贷" />
+   <TextField fx:id="remineCnName" layoutX="38.0" layoutY="266.0" prefHeight="23.0" prefWidth="178.0" promptText="remine提单者名称" />
+   <Button layoutX="216.0" layoutY="101.0" mnemonicParsing="false" onAction="#updateMilestone" prefHeight="23.0" prefWidth="55.0" text="更新" />
+</AnchorPane>

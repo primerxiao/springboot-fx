@@ -11,7 +11,6 @@ import java.sql.SQLException;
 
 /**
  * 数据源配置
- * @author HIFeng
  */
 @Configuration
 @EnableTransactionManagement

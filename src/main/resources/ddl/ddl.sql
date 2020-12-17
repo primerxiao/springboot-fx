@@ -1,33 +1,115 @@
---用户配置表 配置界面中的控件的值
-drop table if exists app_config;
 create table app_config
 (
-    config_code  text not null
+    config_code text not null
         constraint app_config_pk
             primary key,
     config_class text,
     config_value text
 );
---数据源配置表
-drop table if exists db_config;
-create table db_config
+
+create table data_export_config
 (
-    name              text not null--数据源配置名
-        primary key,
-    user_name         text not null,--数据库账户名
-    password          text not null,--数据库密码
-    driver_class_name text not null,--驱动类名
-    url               text not null--数据库连接
-);
-drop table if exists app_dict;
-create table app_dict
-(
-    dict_code  text not null primary key,--字典项值
-    dict_name  text not null ,--字典项名
-    group_code text not null,--字典分组编码
-    group_name text,--字典分组名
-    order_id integer not null default 0,--排序（按值升序排列）
-    status integer not null default 1--状态（0失效 1生效）
+    id int not null
+        constraint data_export_config_pk
+            primary key,
+    query_statement text not null,
+    class_name text not null,
+    remark text
 );
 
+create table data_source_config
+(
+    ip text not null,
+    data_name text not null,
+    port text not null,
+    user_name text not null,
+    password text not null,
+    remark text,
+    smcenter_ip text,
+    primary key (ip, data_name)
+);
+
+create table gitlab_milestone
+(
+    id integer not null
+        constraint gitlab_milestone_pk
+            primary key,
+    name text
+);
+
+create table gitlab_milestone_xhs
+(
+    id integer
+        constraint gitlab_milestone_xhs_pk
+            primary key,
+    title text,
+    project_id integer,
+    project_name text
+);
+
+create table gitlab_project_config
+(
+    project_name text,
+    project_id text
+);
+
+create table log_file_list
+(
+    id integer
+        constraint log_file_list_pk
+            primary key autoincrement,
+    name text,
+    log_file_path text,
+    sys_project_id text,
+    sys_server_id integer,
+    sys_env_id integer
+);
+
+create table sys_db
+(
+    id integer
+        constraint sys_db_pk
+            primary key autoincrement,
+    name text,
+    ip text,
+    port int,
+    username text,
+    password text
+);
+
+create table sys_db_name
+(
+    id integer
+        constraint sys_db_name_pk
+            primary key autoincrement,
+    name text
+);
+
+create table sys_env
+(
+    id integer
+        constraint sys_env_pk
+            primary key autoincrement,
+    name text
+);
+
+create table sys_project
+(
+    id integer
+        constraint sys_project_pk
+            primary key autoincrement,
+    name text
+);
+
+create table sys_server
+(
+    id integer
+        constraint sys_server_pk
+            primary key autoincrement,
+    name text,
+    ip text,
+    port text,
+    username text,
+    password text
+);
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="770.0" prefWidth="1062.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.primer.controller.RemineViewController">
+    <children>
+        <ButtonBar layoutX="755.0" layoutY="8.0" prefHeight="40.0" prefWidth="287.0">
+            <buttons>
+                <Button mnemonicParsing="false" onAction="#fillIssuesContent" text="填充内容" />
+            <Button mnemonicParsing="false" onAction="#newAction" text="新建任务" />
+            <Button mnemonicParsing="false" onAction="#loginRemine" text="登陆remine" />
+            </buttons>
+        </ButtonBar>
+        <WebView fx:id="webView" layoutX="8.0" layoutY="48.0" prefHeight="688.0" prefWidth="1045.0" />
+    </children>
+</AnchorPane>

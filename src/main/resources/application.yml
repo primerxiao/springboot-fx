@@ -12,6 +12,13 @@ spring:
   #jpa.hibernate.ddl-auto 仅支持create-drop和create
 
 javafx:
-  title: JavaFx应用
+  title: 工具集合
   stage:
-    resizable: false
+    resizable: true
+remine:
+  login-url: http://10.1.121.122/redmine/login
+  issues-new-url: http://10.1.121.122/redmine/projects/xjsocm/issues/new
+gitlab:
+  url: http://10.139.6.26:7077/
+
+
