@@ -19,7 +19,7 @@ import java.io.IOException;
 public class MainApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) throws IOException {
-        launch(MainApplication.class, MainMenuView.class, args);
         //Platform.setImplicitExit(false);
+        launch(MainApplication.class, MainMenuView.class, args);
     }
 }
