@@ -4,9 +4,9 @@ import com.primer.MainApplication;
 import com.primer.common.Constanst;
 import com.primer.common.annotation.AppConfigAnnotation;
 import com.primer.common.util.AlertUtils;
-import com.primer.dao.GitlabMilestoneDao;
-import com.primer.dao.GitlabMilestoneXhsDao;
-import com.primer.dao.GitlabProjectConfigDao;
+import com.primer.repository.GitlabMilestoneRepository;
+import com.primer.repository.GitlabMilestoneXhsRepository;
+import com.primer.repository.GitlabProjectConfigRepository;
 import com.primer.bean.CommitInfo;
 import com.primer.entity.GitlabMilestone;
 import com.primer.entity.GitlabMilestoneXhs;
@@ -19,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.util.StringConverter;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -95,19 +94,19 @@ public class VersionHelperController extends AppConfigController implements Init
     private String gitlabUrl;
 
     @Autowired
-    private GitlabProjectConfigDao gitlabProjectConfigDao;
+    private GitlabProjectConfigRepository gitlabProjectConfigRepository;
 
     @Autowired
-    private GitlabMilestoneDao gitlabMilestoneDao;
+    private GitlabMilestoneRepository gitlabMilestoneRepository;
 
     @Autowired
-    private GitlabMilestoneXhsDao gitlabMilestoneXhsDao;
+    private GitlabMilestoneXhsRepository gitlabMilestoneXhsRepository;
 
     @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //设置milestone
-        mileStone.getItems().addAll(gitlabMilestoneDao.findAll());
+        mileStone.getItems().addAll(gitlabMilestoneRepository.findAll());
         mileStone.converterProperty().set(new StringConverter<GitlabMilestone>() {
             @Override
             public String toString(GitlabMilestone object) {
@@ -195,7 +194,7 @@ public class VersionHelperController extends AppConfigController implements Init
 
     public void setCommitInfo(GitLabApi gitLabApi) throws GitLabApiException, ParseException {
         //获取配置的项目
-        List<GitlabProjectConfig> gitlabProjectConfigs = gitlabProjectConfigDao.findAll();
+        List<GitlabProjectConfig> gitlabProjectConfigs = gitlabProjectConfigRepository.findAll();
         for (GitlabProjectConfig gitlabProjectConfig : gitlabProjectConfigs) {
             List<Commit> commits = gitLabApi.getCommitsApi().getCommits(
                     gitlabProjectConfig.getProjectId(),
@@ -304,7 +303,7 @@ public class VersionHelperController extends AppConfigController implements Init
         if (9999 == mileStoneId) {
             GitlabMilestoneXhs gitlabMilestoneXhs = new GitlabMilestoneXhs();
             gitlabMilestoneXhs.setProjectId(projectId);
-            GitlabMilestoneXhs gitlabMilestoneXhsByProjectId = gitlabMilestoneXhsDao.findByProjectId(projectId);
+            GitlabMilestoneXhs gitlabMilestoneXhsByProjectId = gitlabMilestoneXhsRepository.findByProjectId(projectId);
             if (!Objects.isNull(gitlabMilestoneXhs)) {
                 return gitlabMilestoneXhsByProjectId.getId();
             }
@@ -443,15 +442,15 @@ public class VersionHelperController extends AppConfigController implements Init
             gitLabApi = GitLabApi.oauth2Login(gitlabUrl, gitAccount.getText().trim(), gitPassword.getText().trim());
             List<Group> groups = gitLabApi.getGroupApi().getGroups();
             if (groups != null && !groups.isEmpty()) {
-                gitlabMilestoneDao.deleteAll();
+                gitlabMilestoneRepository.deleteAll();
             }
             for (Group group : groups) {
                 List<Milestone> groupMilestones = gitLabApi.getMilestonesApi().getGroupMilestones(group.getId());
                 groupMilestones.sort(Comparator.comparing(Milestone::getId));
                 for (Milestone groupMilestone : groupMilestones) {
-                    gitlabMilestoneDao.saveAndFlush(new GitlabMilestone(groupMilestone.getId(), groupMilestone.getTitle()));
+                    gitlabMilestoneRepository.saveAndFlush(new GitlabMilestone(groupMilestone.getId(), groupMilestone.getTitle()));
                 }
-                gitlabMilestoneDao.saveAndFlush(new GitlabMilestone(9999, "新核心"));
+                gitlabMilestoneRepository.saveAndFlush(new GitlabMilestone(9999, "新核心"));
 
             }
             AlertUtils.alertInfo("更新数据成功，请重启应用程序");

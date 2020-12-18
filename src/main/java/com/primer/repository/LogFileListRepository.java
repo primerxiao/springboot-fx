@@ -1,6 +1,5 @@
-package com.primer.dao;
+package com.primer.repository;
 
-import com.primer.entity.AppConfig;
 import com.primer.entity.LogFileList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * @author HIFeng
  */
 @Repository
-public interface LogFileListDao extends JpaRepository<LogFileList, Integer> {
+public interface LogFileListRepository extends JpaRepository<LogFileList, Integer> {
 
 }

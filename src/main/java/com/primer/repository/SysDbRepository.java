@@ -1,6 +1,5 @@
-package com.primer.dao;
+package com.primer.repository;
 
-import com.primer.entity.AppConfig;
 import com.primer.entity.SysDb;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,6 @@ import org.springframework.stereotype.Repository;
  * @author HIFeng
  */
 @Repository
-public interface SysDbDao extends JpaRepository<SysDb, Integer> {
+public interface SysDbRepository extends JpaRepository<SysDb, Integer> {
 
 }

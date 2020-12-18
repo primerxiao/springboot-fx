@@ -59,7 +59,7 @@ public class LogHelperController extends AppConfigController implements Initiali
             }
         });
 
-        List<SysProject> sysProjects = sysProjectDao.findAll();
+        List<SysProject> sysProjects = sysProjectRepository.findAll();
         if (!sysProjects.isEmpty()) {
             projectListView.getItems().addAll(sysProjects);
         }

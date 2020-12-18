@@ -1,10 +1,10 @@
 package com.primer.controller;
 
 import com.primer.common.annotation.AppConfigAnnotation;
-import com.primer.dao.SysDbDao;
-import com.primer.dao.SysEnvDao;
-import com.primer.dao.SysProjectDao;
-import com.primer.dao.SysServerDao;
+import com.primer.repository.SysDbRepository;
+import com.primer.repository.SysEnvRepository;
+import com.primer.repository.SysProjectRepository;
+import com.primer.repository.SysServerRepository;
 import com.primer.entity.AppConfig;
 import com.primer.entity.GitlabMilestone;
 import com.primer.service.AppConfigService;
@@ -30,16 +30,16 @@ public class AppConfigController {
     public AppConfigService appConfigService;
 
     @Autowired
-    public SysDbDao sysDbDao;
+    public SysDbRepository sysDbRepository;
 
     @Autowired
-    public SysEnvDao sysEnvDao;
+    public SysEnvRepository sysEnvRepository;
 
     @Autowired
-    public SysProjectDao sysProjectDao;
+    public SysProjectRepository sysProjectRepository;
 
     @Autowired
-    public SysServerDao sysServerDao;
+    public SysServerRepository sysServerRepository;
 
     /**
      * 保存配置到数据库

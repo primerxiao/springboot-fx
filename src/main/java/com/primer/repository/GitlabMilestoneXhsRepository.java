@@ -1,17 +1,14 @@
-package com.primer.dao;
+package com.primer.repository;
 
-import com.primer.entity.GitlabMilestone;
 import com.primer.entity.GitlabMilestoneXhs;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 /**
  * @author HIFeng
  */
 @Repository
-public interface GitlabMilestoneXhsDao extends JpaRepository<GitlabMilestoneXhs, Integer> {
+public interface GitlabMilestoneXhsRepository extends JpaRepository<GitlabMilestoneXhs, Integer> {
 
     GitlabMilestoneXhs findByProjectId(Integer projectId);
 }

@@ -3,8 +3,10 @@ package com.primer.controller;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.effects.JFXDepthManager;
 import com.primer.MainApplication;
+import com.primer.entity.AppToolList;
 import com.primer.jfxsupport.AbstractFxmlView;
 import com.primer.jfxsupport.FXMLController;
+import com.primer.service.CommonService;
 import com.primer.view.BatchHelperView;
 import com.primer.view.VersionHelperView;
 import javafx.event.ActionEvent;
@@ -15,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +36,9 @@ public class MainMenuController implements Initializable {
     private static int step = 1;
     public StackPane stackPane;
 
+    @Autowired
+    private CommonService<AppToolList, String> appToolListService;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //TODO drop shadow changes the width and height thus need to be considered
@@ -45,8 +52,12 @@ public class MainMenuController implements Initializable {
         flowPane.getChildren().add(rippler);
         JFXDepthManager.setDepth(label, JFXDepthManager.getLevels());
 
+        int counter = JFXDepthManager.getLevels();
+
         label.setOnMousePressed((e) -> {
-            MainApplication.showView(VersionHelperView.class, Modality.NONE);
+            AppToolList byid = appToolListService.findByid(AppToolList.class, "0");
+            System.out.println(byid.toString());
+            //MainApplication.showView(VersionHelperView.class, Modality.NONE);
         });
 
         Label label2 = new Label("提版助手");

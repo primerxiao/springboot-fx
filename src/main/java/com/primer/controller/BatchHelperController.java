@@ -8,8 +8,8 @@ import com.google.common.collect.Lists;
 import com.primer.common.database.DataSourceManager;
 import com.primer.common.database.DataToSql;
 import com.primer.common.util.AlertUtils;
-import com.primer.dao.DataExportConfigDao;
-import com.primer.dao.DataSourceConfigDao;
+import com.primer.repository.DataExportConfigRepository;
+import com.primer.repository.DataSourceConfigRepository;
 import com.primer.entity.DataExportConfig;
 import com.primer.entity.DataSourceConfig;
 import com.primer.entity.DataSourceConfigPK;
@@ -98,10 +98,10 @@ public class BatchHelperController implements Initializable {
     public WebView webView;
 
     @Autowired
-    private DataSourceConfigDao dataSourceConfigDAO;
+    private DataSourceConfigRepository dataSourceConfigRepository;
 
     @Autowired
-    private DataExportConfigDao dataExportConfigDAO;
+    private DataExportConfigRepository dataExportConfigRepository;
 
     @Autowired
     private BatchService batchService;
@@ -115,7 +115,7 @@ public class BatchHelperController implements Initializable {
         //openWebView();
         //获取数据库配置
         console.appendText("\r\n获取数据库配置");
-        List<DataSourceConfig> dataSourceConfigs = dataSourceConfigDAO.findAll();
+        List<DataSourceConfig> dataSourceConfigs = dataSourceConfigRepository.findAll();
         if (!dataSourceConfigs.isEmpty()) {
             envList.getItems().clear();
             ObservableList<Text> texts = FXCollections.observableArrayList();
@@ -220,7 +220,7 @@ public class BatchHelperController implements Initializable {
         Text selectedItem1 = (Text) batchList.getSelectionModel().getSelectedItem();
         String batchId = selectedItem1.getText().split("  ")[0];
         //查询导出配置
-        List<DataExportConfig> list = this.dataExportConfigDAO.findAll();
+        List<DataExportConfig> list = this.dataExportConfigRepository.findAll();
 
         for (DataExportConfig dataExportConfig : list) {
             console.appendText("\r\n" + dataExportConfig.getRemark());
@@ -292,7 +292,7 @@ public class BatchHelperController implements Initializable {
         DataSourceConfigPK dataSourceConfigKey = new DataSourceConfigPK();
         dataSourceConfigKey.setDataName("efp_daybat");
         dataSourceConfigKey.setIp(envIp);
-        DataSourceConfig dataSourceConfig = dataSourceConfigDAO.findById(dataSourceConfigKey).orElse(null);
+        DataSourceConfig dataSourceConfig = dataSourceConfigRepository.findById(dataSourceConfigKey).orElse(null);
         return dataSourceConfig.getSmcenterIp();
     }
 

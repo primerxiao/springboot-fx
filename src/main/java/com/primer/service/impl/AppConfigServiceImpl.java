@@ -1,6 +1,6 @@
 package com.primer.service.impl;
 
-import com.primer.dao.AppConfigDao;
+import com.primer.repository.AppConfigRepository;
 import com.primer.entity.AppConfig;
 import com.primer.service.AppConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +15,20 @@ import java.util.List;
 public class AppConfigServiceImpl implements AppConfigService {
 
     @Autowired
-    private AppConfigDao appConfigDao;
+    private AppConfigRepository appConfigRepository;
 
     @Override
     public AppConfig findByConfigCode(String configCode) {
-        return appConfigDao.findById(configCode).orElse(null);
+        return appConfigRepository.findById(configCode).orElse(null);
     }
     @Override
     public AppConfig save(AppConfig appConfig) {
-        return appConfigDao.save(appConfig);
+        return appConfigRepository.save(appConfig);
     }
 
     @Override
     public List<AppConfig> findAll() {
-        return this.appConfigDao.findAll();
+        return this.appConfigRepository.findAll();
     }
 
 }
