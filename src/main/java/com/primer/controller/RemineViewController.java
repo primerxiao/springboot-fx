@@ -1,6 +1,6 @@
 package com.primer.controller;
 
-import com.primer.common.Constanst;
+import com.primer.common.constanst.GitCommitConstanst;
 import com.primer.common.util.AlertUtils;
 import com.primer.bean.CommitInfo;
 import com.primer.entity.GitlabMilestone;
@@ -132,7 +132,7 @@ public class RemineViewController implements Initializable {
         stringBuilder.append("<td style='height:27.00pt; vertical-align:middle; white-space:normal; width:441.75pt'><span");
         stringBuilder.append("style='font-size:11pt'><span style='color:#000000'><span style='font-family:宋体'>");
         String descStr = "";
-        for (CommitInfo gitCommitInfo : Constanst.commitInfos) {
+        for (CommitInfo gitCommitInfo : GitCommitConstanst.commitInfos) {
             for (String s : gitCommitInfo.getCommitMessages()) {
                 if (descStr.contains(s)) {
                     continue;
@@ -144,19 +144,19 @@ public class RemineViewController implements Initializable {
         stringBuilder.append("</span></span></span>");
         stringBuilder.append("</td>");
         stringBuilder.append("</tr>");
-        for (int i = 0; i < Constanst.commitInfos.size(); i++) {
+        for (int i = 0; i < GitCommitConstanst.commitInfos.size(); i++) {
             if (i == 0) {
                 stringBuilder.append("<tr>");
-                stringBuilder.append("<td rowspan='" + Constanst.commitInfos.size() + "'");
+                stringBuilder.append("<td rowspan='" + GitCommitConstanst.commitInfos.size() + "'");
                 stringBuilder.append("style='background-color:#92d050; height:27.00pt; text-align:left; vertical-align:middle; white-space:nowrap'>");
                 stringBuilder.append("<span style='font-size:11pt'><span style='color:#000000'><span");
                 stringBuilder.append("style='font-family:宋体'>代码清单</span></span></span></td>");
                 stringBuilder.append("<td style='background-color:#c5d9f1; height:27.00pt; vertical-align:middle; white-space:nowrap'><span");
                 stringBuilder.append("style='font-size:11pt'><span style='color:#000000'><span");
-                stringBuilder.append("style='font-family:宋体'>" + Constanst.commitInfos.get(i).getGitlabProjectConfig().getProjectName() + "</span></span></span></td>");
+                stringBuilder.append("style='font-family:宋体'>" + GitCommitConstanst.commitInfos.get(i).getGitlabProjectConfig().getProjectName() + "</span></span></span></td>");
                 stringBuilder.append("<td style='height:27.00pt; vertical-align:middle; white-space:normal; width:441.75pt'><span");
                 stringBuilder.append("style='font-size:11pt'><span style='color:#000000'><span style='font-family:宋体'>");
-                for (String s : Constanst.commitInfos.get(i).getCommitFiles()) {
+                for (String s : GitCommitConstanst.commitInfos.get(i).getCommitFiles()) {
                     stringBuilder.append(s + "<br>");
                 }
                 stringBuilder.append("</span></span></span>");
@@ -167,10 +167,10 @@ public class RemineViewController implements Initializable {
                 stringBuilder.append("<tr>");
                 stringBuilder.append("<td style='background-color:#c5d9f1; height:42.00pt; vertical-align:middle; white-space:nowrap'><span");
                 stringBuilder.append("style='font-size:11pt'><span style='color:#000000'><span");
-                stringBuilder.append("style='font-family:宋体'>" + Constanst.commitInfos.get(i).getGitlabProjectConfig().getProjectName() + "</span></span></span></td>");
+                stringBuilder.append("style='font-family:宋体'>" + GitCommitConstanst.commitInfos.get(i).getGitlabProjectConfig().getProjectName() + "</span></span></span></td>");
                 stringBuilder.append("<td style='height:42.00pt; vertical-align:middle; white-space:normal; width:441.75pt'><span");
                 stringBuilder.append("style='font-size:11pt'><span style='color:#000000'><span style='font-family:宋体'>");
-                for (String s : Constanst.commitInfos.get(i).getCommitFiles()) {
+                for (String s : GitCommitConstanst.commitInfos.get(i).getCommitFiles()) {
                     stringBuilder.append(s + "<br>");
                 }
                 stringBuilder.append("</span></span></span>");
@@ -218,7 +218,7 @@ public class RemineViewController implements Initializable {
         stringBuilder.append("<span style='font-size:11pt'><span style='color:#000000'><span");
         stringBuilder.append("style='font-family:宋体'>脚本</span></span></span></td>");
         stringBuilder.append("<td style='height:13.50pt; vertical-align:middle; white-space:normal; width:441.75pt'>");
-        for (String sqlFile : Constanst.commitSqlFile) {
+        for (String sqlFile : GitCommitConstanst.commitSqlFile) {
             stringBuilder.append(sqlFile + "<br>");
         }
         stringBuilder.append("</td>");

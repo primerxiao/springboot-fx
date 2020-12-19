@@ -1,7 +1,7 @@
 package com.primer.controller;
 
 import com.primer.MainApplication;
-import com.primer.common.Constanst;
+import com.primer.common.constanst.GitCommitConstanst;
 import com.primer.common.annotation.AppConfigAnnotation;
 import com.primer.common.util.AlertUtils;
 import com.primer.repository.GitlabMilestoneRepository;
@@ -148,7 +148,7 @@ public class VersionHelperController extends AppConfigController implements Init
     public void commitRemind(ActionEvent actionEvent) throws GitLabApiException, ParseException {
         try {
             //判断数据是否存在
-            if (Constanst.commitInfos.isEmpty() && Constanst.commitSqlFile.isEmpty()) {
+            if (GitCommitConstanst.commitInfos.isEmpty() && GitCommitConstanst.commitSqlFile.isEmpty()) {
                 throw new Exception("数据不能为为空，请先检查数据");
             }
             //打开webview加载remine页面进行操作
@@ -210,11 +210,11 @@ public class VersionHelperController extends AppConfigController implements Init
                     if (gitAccount.getText().equals(commit.getCommitterName())) {
                         List<Diff> diffs = gitLabApi.getCommitsApi().getDiff(gitlabProjectConfig.getProjectId(), commit.getId());
                         for (Diff diff : diffs) {
-                            if (!Constanst.commitSqlFile.contains(diff.getOldPath())) {
-                                Constanst.commitSqlFile.add(diff.getOldPath());
+                            if (!GitCommitConstanst.commitSqlFile.contains(diff.getOldPath())) {
+                                GitCommitConstanst.commitSqlFile.add(diff.getOldPath());
                             }
-                            if (!Constanst.commitSqlFile.contains(diff.getNewPath())) {
-                                Constanst.commitSqlFile.add(diff.getNewPath());
+                            if (!GitCommitConstanst.commitSqlFile.contains(diff.getNewPath())) {
+                                GitCommitConstanst.commitSqlFile.add(diff.getNewPath());
                             }
                         }
                     }
@@ -252,7 +252,7 @@ public class VersionHelperController extends AppConfigController implements Init
 
             }
             if (!commitInfo.getCommitFiles().isEmpty()) {
-                Constanst.commitInfos.add(commitInfo);
+                GitCommitConstanst.commitInfos.add(commitInfo);
             }
         }
     }
@@ -268,12 +268,12 @@ public class VersionHelperController extends AppConfigController implements Init
         GitLabApi gitLabApi = GitLabApi.oauth2Login("http://10.139.6.26:7077/", gitAccount.getText(), gitPassword.getText());
         //setCommitInfo(gitLabApi);
         //如果数据为空不做处理
-        if (Constanst.commitInfos.isEmpty()) {
+        if (GitCommitConstanst.commitInfos.isEmpty()) {
             tip.setText("数据为空");
             return;
         }
         ArrayList<String> messages = new ArrayList<>();
-        for (CommitInfo commitInfo : Constanst.commitInfos) {
+        for (CommitInfo commitInfo : GitCommitConstanst.commitInfos) {
             //提交合并请求
             messages.add("开始处理模块[" + commitInfo.getGitlabProjectConfig().getProjectName() + "]代码合并-----------");
             try {
@@ -322,12 +322,12 @@ public class VersionHelperController extends AppConfigController implements Init
             //登陆gitlab
             GitLabApi gitLabApi = GitLabApi.oauth2Login(gitlabUrl, gitAccount.getText(), gitPassword.getText());
             //清除数据
-            Constanst.commitSqlFile.clear();
-            Constanst.commitInfos.clear();
+            GitCommitConstanst.commitSqlFile.clear();
+            GitCommitConstanst.commitInfos.clear();
             //获取提交信息
             setCommitInfo(gitLabApi);
             tip.setText("加载数据成功");
-            if (Constanst.dataIsEmpty()) {
+            if (GitCommitConstanst.dataIsEmpty()) {
                 tip.setText("加载的数据为空");
             }
         } catch (Exception e) {
@@ -338,7 +338,7 @@ public class VersionHelperController extends AppConfigController implements Init
 
     @FXML
     public void showCommitInfo(ActionEvent actionEvent) throws IOException {
-        if (Constanst.dataIsEmpty()) {
+        if (GitCommitConstanst.dataIsEmpty()) {
             AlertUtils.alertInfo("数据为空");
             return;
         }
@@ -349,8 +349,8 @@ public class VersionHelperController extends AppConfigController implements Init
                 new File("/temp.txt").createNewFile();
             }
             fileWriter = new FileWriter(new File("/temp.txt"));
-            if (!Constanst.commitInfos.isEmpty() || !Constanst.commitSqlFile.isEmpty()) {
-                for (CommitInfo commitInfo : Constanst.commitInfos) {
+            if (!GitCommitConstanst.commitInfos.isEmpty() || !GitCommitConstanst.commitSqlFile.isEmpty()) {
+                for (CommitInfo commitInfo : GitCommitConstanst.commitInfos) {
                     fileWriter.write("\n");
                     fileWriter.write("模块:" + commitInfo.getGitlabProjectConfig().getProjectName() + "   涉及文件变动数量为：" + commitInfo.getCommitFiles().size());
                     for (String commitFile : commitInfo.getCommitFiles()) {
@@ -360,8 +360,8 @@ public class VersionHelperController extends AppConfigController implements Init
                 }
                 fileWriter.write("\n");
                 fileWriter.write("\n");
-                fileWriter.write("脚本涉及文件变动数为：" + Constanst.commitSqlFile.size());
-                for (String s : Constanst.commitSqlFile) {
+                fileWriter.write("脚本涉及文件变动数为：" + GitCommitConstanst.commitSqlFile.size());
+                for (String s : GitCommitConstanst.commitSqlFile) {
                     fileWriter.write("\n");
                     fileWriter.write("  " + s);
                 }

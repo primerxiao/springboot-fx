@@ -41,6 +41,8 @@ public interface CommonService<T ,ID>{
      */
     List<T> findByMoreFiled(Class<T> clazz,LinkedHashMap<String,Object> map);
 
+    List<T> findAll(Class<T> clazz);
+
     /**
      * 根据表的id删除数据
      * @param  entity

@@ -1,5 +1,8 @@
 package com.primer.jfxsupport;
 
+import com.primer.MainApplication;
+import com.primer.view.MainMenuView;
+import javafx.event.EventHandler;
 import org.slf4j.*;
 import org.springframework.boot.*;
 import org.springframework.context.*;
@@ -78,7 +81,17 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         newStage.initOwner(getStage());
         newStage.setTitle(view.getDefaultTitle());
         newStage.initStyle(view.getDefaultStyle());
+
+        newStage.setOnCloseRequest(windowEvent -> {
+            //判断
+            boolean showing = MainApplication.getStage().isShowing();
+            if (!showing) {
+                MainApplication.showInitialView(MainMenuView.class);
+            }
+        });
+        MainApplication.getStage().hide();
         newStage.showAndWait();
+
     }
 
     private void loadIcons(ConfigurableApplicationContext ctx) {

@@ -3,6 +3,7 @@ package com.primer.controller;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.effects.JFXDepthManager;
 import com.primer.MainApplication;
+import com.primer.common.constanst.StyleConstanst;
 import com.primer.entity.AppToolList;
 import com.primer.jfxsupport.AbstractFxmlView;
 import com.primer.jfxsupport.FXMLController;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -31,9 +33,7 @@ public class MainMenuController implements Initializable {
 
     public FlowPane flowPane;
 
-    private static final String FX_BACKGROUND_COLOR_WHITE = "-fx-background-color:WHITE;";
-    private static int counter = 0;
-    private static int step = 1;
+
     public StackPane stackPane;
 
     @Autowired
@@ -44,35 +44,34 @@ public class MainMenuController implements Initializable {
         //TODO drop shadow changes the width and height thus need to be considered
         flowPane.setVgap(20);
         flowPane.setHgap(20);
-
-        Label label = new Label("提版助手");
-        label.setStyle(FX_BACKGROUND_COLOR_WHITE);
-        label.setPadding(new Insets(20));
-        JFXRippler rippler = new JFXRippler(label);
-        flowPane.getChildren().add(rippler);
-        JFXDepthManager.setDepth(label, JFXDepthManager.getLevels());
-
-        int counter = JFXDepthManager.getLevels();
-
-        label.setOnMousePressed((e) -> {
-            AppToolList byid = appToolListService.findByid(AppToolList.class, "0");
-            System.out.println(byid.toString());
-            //MainApplication.showView(VersionHelperView.class, Modality.NONE);
-        });
-
-        Label label2 = new Label("提版助手");
-        label2.setStyle(FX_BACKGROUND_COLOR_WHITE);
-        label2.setPadding(new Insets(20));
-        JFXRippler rippler1 = new JFXRippler(label2);
-        flowPane.getChildren().add(rippler1);
-        JFXDepthManager.setDepth(label2, JFXDepthManager.getLevels());
-        label2.setOnMousePressed((e) -> {
-            MainApplication.getStage().hide();
-
-        });
+        List<AppToolList> appToolLists = appToolListService.findAll(AppToolList.class);
+        for (AppToolList appToolList : appToolLists) {
+            Label label = new Label(appToolList.getToolName());
+            label.setStyle(StyleConstanst.FX_BACKGROUND_COLOR_WHITE);
+            label.setPadding(new Insets(20));
+            JFXRippler rippler = new JFXRippler(label);
+            flowPane.getChildren().add(rippler);
+            JFXDepthManager.setDepth(label, JFXDepthManager.getLevels());
+            label.setOnMouseClicked((e) -> {
+                try {
+                    MainApplication.showView((Class<? extends AbstractFxmlView>) Class.forName(appToolList.getToolViewClass()), getModality(appToolList.getToolOpenModality()));
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            });
+        }
         StackPane.setMargin(flowPane, new Insets(50));
-        stackPane.setStyle("-fx-background-color:WHITE");
-
+        stackPane.setStyle(StyleConstanst.FX_BACKGROUND_COLOR_WHITE);
     }
 
+    public Modality getModality(Integer modality) {
+        if (modality == 0) {
+            return Modality.NONE;
+        } else if (modality == 1) {
+            return Modality.WINDOW_MODAL;
+        } else if (modality == 2) {
+            return Modality.APPLICATION_MODAL;
+        }
+        throw new RuntimeException("转换modality异常");
+    }
 }

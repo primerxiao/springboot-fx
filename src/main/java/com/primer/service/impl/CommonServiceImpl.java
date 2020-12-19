@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -19,6 +21,7 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
 
     @PersistenceContext
     private EntityManager entityManager;
+
 
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -38,8 +41,8 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
             return entityManager.find(clazz, id);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return null;
     }
 
     @Override
@@ -141,6 +144,18 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
             e.printStackTrace();
         }
         return listRe;
+    }
+
+    @Override
+    public List<T> findAll(Class<T> clazz) {
+        try {
+            return entityManager.createQuery("from " + clazz.getName() + " u ").getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override

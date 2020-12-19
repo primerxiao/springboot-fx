@@ -1,4 +1,4 @@
-package com.primer.common;
+package com.primer.common.constanst;
 
 import com.primer.bean.CommitInfo;
 
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 数据
  */
-public class Constanst {
+public class GitCommitConstanst {
 
     public static List<CommitInfo> commitInfos=new ArrayList<>();
 

@@ -6,6 +6,16 @@ create table app_config
     config_class text,
     config_value text
 );
+create table app_tool_list
+(
+    id text not null
+        constraint app_tool_list_pk
+            primary key,
+    tool_name text,
+    tool_view_class text,
+    tool_open_modality int,
+    order_id int
+);
 
 create table data_export_config
 (
