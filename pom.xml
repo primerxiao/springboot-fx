@@ -16,8 +16,8 @@
         <spring-framework.version>5.2.9.RELEASE</spring-framework.version>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <junit-platform.version>1.0.1</junit-platform.version>
         <testfx.version>4.0.8-alpha</testfx.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -32,35 +32,9 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <dependencies>
-        <!--javafx相关模块-->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${fx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${fx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>${fx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${fx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>${fx.version}</version>
-        </dependency>
         <!--spring相关-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -169,7 +143,7 @@
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
-            <version>9.0.10</version>
+            <version>8.0.10</version>
         </dependency>
         <!--功能相关-->
         <dependency>
@@ -225,7 +199,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
+                    <release>1.8</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -233,10 +207,10 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <release>11</release>
+                    <release>1.8</release>
                     <jlinkImageName>hellofx</jlinkImageName>
                     <launcher>launcher</launcher>
-                    <mainClass>hellofx/org.openjfx.App</mainClass>
+                    <mainClass>com.primer.MainApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
