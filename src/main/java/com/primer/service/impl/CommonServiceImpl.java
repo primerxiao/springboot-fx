@@ -9,9 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 肖均辉
@@ -25,14 +26,13 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public boolean save(T entity) {
+    public void save(T entity) {
         try {
             entityManager.persist(entity);
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return false;
     }
 
     @Override
@@ -47,103 +47,79 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
 
     @Override
     public List<T> findByField(Class<T> clazz, String filed, Object value) {
-        String tablename = clazz.getName();
-        List<T> list = new ArrayList<>();
         try {
-            String sql = "from " + tablename + " u WHERE u." + filed + "=?1";
+            String sql = "from " + clazz.getName() + " u WHERE u." + filed + "=?1";
             Query query = entityManager.createQuery(sql);
             query.setParameter(1, value);
-            list = query.getResultList();
-            entityManager.close();
-        } catch (Exception e) {
-            System.out.println("---------------查询出错---------------");
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @Override
-    @Transactional
-    public boolean deleteById(Class<T> clazz, ID id) {
-        boolean flag = false;
-        try {
-            String tableName = clazz.getName();
-            String sql = "delete from " + tableName + " u WHERE u.id = ?1";
-            Query query = entityManager.createQuery(sql);
-            query.setParameter(1, id);
-            int i = query.executeUpdate();
-            if (i != 0) {
-                flag = true;
-            }
-            entityManager.close();
+            return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            entityManager.close();
         }
-
-        return flag;
     }
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public boolean deleteByIds(Class<T> clazz, List<ID> ids) {
-        boolean flag = false;
-        List<ID> param = new ArrayList<ID>();
-        int index = 1;
+    public boolean deleteById(Class<T> clazz, ID id) {
         try {
-            String tableName = clazz.getName();
-            StringBuilder sql = new StringBuilder("delete from " + tableName + " u WHERE u.id in (");
-            if (ids != null && ids.size() != 0) {
-                for (ID id : ids) {
-                    sql.append("?").append(index).append(",");
-                    param.add(id);
-                    index++;
-                }
+            String sql = "delete from " + clazz.getName() + " u WHERE u.id = ?1";
+            Query query = entityManager.createQuery(sql);
+            query.setParameter(1, id);
+            int i = query.executeUpdate();
+            return i > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public boolean deleteByIds(Class<T> clazz, ID... ids) {
+        try {
+            StringBuilder sql = new StringBuilder("delete from " + clazz.getName() + " u WHERE u.id in (");
+            for (int i = 0; i < ids.length; i++) {
+                sql.append("?").append(i + 1).append(",");
             }
             sql.deleteCharAt(sql.length() - 1);
             sql.append(")");
             Query query = entityManager.createQuery(sql.toString());
-            for (int x = 0; x < param.size(); x++) {
-                query.setParameter(x + 1, param.get(x));
+            for (int i = 0; i < ids.length; i++) {
+                query.setParameter(i + 1, ids[i]);
             }
-            int i = query.executeUpdate();
-            if (i != 0) {
-                flag = true;
-            }
-            entityManager.close();
+            return query.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }finally {
+            entityManager.close();
         }
-        return flag;
     }
 
     @Override
     public List<T> findByMoreFiled(Class<T> clazz, LinkedHashMap<String, Object> map) {
-        String tablename = clazz.getName();
-        List<T> listRe = new ArrayList<>();
         try {
-            String sql = "from " + tablename + " u WHERE ";
-            Set<String> set = null;
-            set = map.keySet();
-            List<String> list = new ArrayList<>(set);
-            List<Object> filedlist = new ArrayList<>();
-            int x = 1;
-            for (String filed : list) {
-                sql += "u." + filed + "=?" + x + " and ";
-                filedlist.add(filed);
-                x++;
+            StringBuilder sql = new StringBuilder("from " + clazz.getName() + " u WHERE ");
+            ArrayList<String> fields = new ArrayList<>(map.keySet());
+            for (int i = 0; i < fields.size(); i++) {
+                sql.append("u.").append(fields.get(i)).append("=?").append(i+1).append(" and ");
             }
-            sql = sql.substring(0, sql.length() - 4);
-            Query query = entityManager.createQuery(sql);
-            for (int i = 0; i < filedlist.size(); i++) {
-                query.setParameter(i + 1, map.get(filedlist.get(i)));
+            sql = new StringBuilder(sql.substring(0, sql.length() - 4));
+            Query query = entityManager.createQuery(sql.toString());
+            for (int i = 0; i < fields.size(); i++) {
+                query.setParameter(i + 1, map.get(fields.get(i)));
             }
-            listRe = query.getResultList();
-            entityManager.close();
+            return query.getResultList();
         } catch (Exception e) {
-            System.out.println("---------------查询出错---------------");
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            entityManager.close();
         }
-        return listRe;
     }
 
     @Override
@@ -160,73 +136,56 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public boolean update(T entity, ID id) {
-        boolean flag = false;
+    public T update(T entity, ID id) {
         try {
-            Object o = entityManager.find(entity.getClass(), id);
+            T o = (T) entityManager.find(entity.getClass(), id);
             BeanUtils.copyPropertiesExcludeNull(entity, o);
-            entityManager.merge(o);
-            flag = true;
+            return entityManager.merge(o);
         } catch (Exception e) {
-            System.out.println("---------------查询出错---------------");
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return flag;
     }
 
     @Override
     @Transactional(rollbackOn = Exception.class)
     public boolean delete(T entity) {  //entity通过设置id来删除相应数据
-        boolean flag = false;
         try {
             entityManager.remove(entityManager.merge(entity));
-            flag = true;
+            return true;
         } catch (Exception e) {
-            System.out.println("---------------删除出错---------------");
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return flag;
     }
 
     @Override
     public Integer findCount(Class<T> clazz, LinkedHashMap<String, Object> map) {
-        String tablename = clazz.getName();
-        Query query = null;
-        Object count = 0;
         try {
-            String sql = "select count(u) from " + tablename + " u WHERE ";
-            Set<String> set = null;
-            set = map.keySet();
-            List<String> list = new ArrayList<>(set);
-            List<Object> filedlist = new ArrayList<>();
-            int x = 1;
-            for (String filed : list) {
-                sql += "u." + filed + "=?" + x + " and ";
-                x++;
-                filedlist.add(filed);
+            StringBuilder sql = new StringBuilder("select count(u) from " + clazz.getName() + " u WHERE ");
+            List<String> fields = new ArrayList<>(map.keySet());
+            for (int i = 0; i < fields.size(); i++) {
+                sql.append("u.").append(fields.get(i)).append("=?").append(i + 1).append(" and ");
             }
-            sql = sql.substring(0, sql.length() - 4);
-            query = entityManager.createQuery(sql);
-            for (int i = 0; i < filedlist.size(); i++) {
-                query.setParameter(i + 1, map.get(filedlist.get(i)));
+            sql = new StringBuilder(sql.substring(0, sql.length() - 4));
+            Query query = entityManager.createQuery(sql.toString());
+            for (int i = 0; i < fields.size(); i++) {
+                query.setParameter(i + 1, map.get(fields.get(i)));
             }
-            count = query.getSingleResult();
+            return Integer.parseInt(query.getSingleResult().toString());
         } catch (Exception e) {
-            System.out.println("---------------查询出错---------------");
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return Integer.parseInt(count.toString());
     }
 
     @Override
     public List<T> findByParams(Class<T> clazz, Params params) {
-        String tablename = clazz.getName();
-        List<T> listRe = new ArrayList<>();
         //jpa运行时需要的参数
-        List param = new ArrayList();
+        List<Object> param = new ArrayList<>();
         try {
             StringBuilder sql = new StringBuilder();
-            sql.append("from ").append(tablename).append(" u WHERE 1=1 ");
+            sql.append("from ").append(clazz.getName()).append(" u WHERE 1=1 ");
             int index = 0;
             //拼接sql，添加参数集合
             index = concatSqlForObj(index, param, sql, params.getAnd(), params.getAndPara());
@@ -240,28 +199,28 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
             index = concatSqlForObj(index, param, sql, params.getNot(), params.getNotPara());
 
             index = concatSqlForList(index, param, sql, params.getIn(), params.getInPara());
-            index = concatSqlForList(index, param, sql, params.getNotIn(), params.getNotInPara());
+            concatSqlForList(index, param, sql, params.getNotIn(), params.getNotInPara());
 
             Query query = entityManager.createQuery(sql.toString());
             //limit
             if (params.getLimitPara() != null) {
-                List list = params.getLimitPara().get("limit");
+                List<?> list = params.getLimitPara().get("limit");
                 query.setFirstResult((Integer) list.get(0));
                 query.setMaxResults((Integer) list.get(1));
             }
             for (int i = 0; i < param.size(); i++) {
                 query.setParameter(i + 1, param.get(i));
             }
-            listRe = query.getResultList();
-            entityManager.close();
+            return query.getResultList();
         } catch (Exception e) {
-            System.out.println("---------------查询出错---------------");
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }finally {
+            entityManager.close();
         }
-        return listRe;
     }
 
-    public static int concatSqlForObj(int index, List param, StringBuilder sql, List<String> symbols, LinkedHashMap<String, Object> params) {
+    public static int concatSqlForObj(int index, List<Object> param, StringBuilder sql, List<String> symbols, LinkedHashMap<String, Object> params) {
         //拼接sql时需要的参数索引
         int index1 = index;
         //取list中的键值对是需要的索引
@@ -273,28 +232,26 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
                 Map.Entry<String, Object> entry = indexedList.get(x);
                 String key = entry.getKey();
                 Object value = entry.getValue();
-
                 index1++;
                 x++;
-
-                if (symbol.equals("or")) {
+                if ("or".equals(symbol)) {
                     sql.append(" or u.").append(key).append("=?").append(index1);
-                } else if (symbol.equals("<")) {
+                } else if ("<".equals(symbol)) {
                     sql.append(" and u.").append(key).append("<?").append(index1);
-                } else if (symbol.equals(">")) {
+                } else if (">".equals(symbol)) {
                     sql.append(" and u.").append(key).append(">?").append(index1);
-                } else if (symbol.equals("like")) {
+                } else if ("like".equals(symbol)) {
                     sql.append(" and u.").append(key).append(" like ?").append(index1);
-                } else if (symbol.equals("notlike")) {
+                } else if ("notlike".equals(symbol)) {
                     sql.append(" and u.").append(key).append(" not like ?").append(index1);
-                } else if (symbol.equals("!=")) {
+                } else if ("!=".equals(symbol)) {
                     sql.append(" and u.").append(key).append(" != ?").append(index1);
-                } else if (symbol.equals("orderby")) {
+                } else if ("orderby".equals(symbol)) {
                     //val的值可取asc 和 desc
                     sql.append(" ORDER BY ").append(key).append(" ").append(value.toString());
                     return index1;
                 } else {
-                    sql.append(" and u." + key + symbol + "?" + index1);
+                    sql.append(" and u.").append(key).append(symbol).append("?").append(index1);
                 }
                 param.add(value);
             }
@@ -302,7 +259,7 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
         return index1;
     }
 
-    public static int concatSqlForList(int index, List param, StringBuilder sql, List<String> symbols, LinkedHashMap<String, List> params) {
+    public static int concatSqlForList(int index, List<Object> param, StringBuilder sql, List<String> symbols, LinkedHashMap<String, List> params) {
         //拼接sql时需要的参数索引
         int index1 = index;
         //取list中的键值对是需要的索引
@@ -318,12 +275,12 @@ public class CommonServiceImpl<T, ID> implements CommonService<T, ID> {
                 index1++;
                 x++;
 
-                if (symbol.equals("between")) {
+                if ("between".equals(symbol)) {
                     sql.append(" and u.").append(key).append(" between ?").append(index1).append(" and ?").append(index1 + 1);
                     index1++;
-                } else if (symbol.equals("in") || symbol.equals("notin")) {
+                } else if ("in".equals(symbol) || "notin".equals(symbol)) {
                     sql.append(" and u.").append(key);
-                    if (symbol.equals("in")) {
+                    if ("in".equals(symbol)) {
                         sql.append(" in (?");
                     } else {
                         sql.append(" not in (?");

@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * 分页
- * @author ChenLei
  *
  * @param <T>
  */
@@ -24,22 +23,22 @@ public class PageBean<T> {
     private Integer pagesize = 10;
 
     /**
-     * // 总记录数
+     * 总记录数
      */
     private Integer count;
 
     /**
-     * // 总页数
+     * 总页数
      */
     private Integer total;
 
     /**
-     * // 当前页码
+     * 当前页码
      */
     private Integer currentPage;
 
     /**
-     * // 对象集合
+     * 对象集合
      */
     private List<T> list = new ArrayList<T>();
     /**
@@ -165,7 +164,7 @@ public class PageBean<T> {
      */
     public boolean isPre()
     {
-        pre = (pageindex > 1) ? true : false;
+        pre = pageindex > 1;
         return pre;
     }
 
@@ -180,7 +179,7 @@ public class PageBean<T> {
      */
     public boolean isNext()
     {
-        next = (pageindex < this.getTotal()) ? true : false;
+        next = pageindex < this.getTotal();
         return next;
     }
 

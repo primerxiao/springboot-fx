@@ -3,6 +3,7 @@ package com.primer.common.persist;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.LinkedHashMap;
 
@@ -19,19 +20,13 @@ public class Params {
     private final LinkedHashMap<String ,Object> orPara;
 
     private final List<String> between;
-    private final LinkedHashMap<String ,List> betweenPara;
+    private final LinkedHashMap<String, List> betweenPara;
 
     private final List<String> lessThan;
     private final LinkedHashMap<String ,Object> lessThanPara;
 
     private final List<String> moreThan;
     private final LinkedHashMap<String ,Object> moreThanPara;
-
-   /* private final List<String> isNull;
-    private final LinkedHashMap<String ,Object> isNullPara;
-
-    private final List<String> isNotNull;
-    private final LinkedHashMap<String ,Object> isNotNullPara;*/
 
     private final List<String> like;
     private final LinkedHashMap<String ,Object> likePara;
@@ -52,7 +47,7 @@ public class Params {
     private final LinkedHashMap<String ,List> notInPara;
 
     private final List<String> limit;
-    private final LinkedHashMap<String ,List> limitPara;
+    private final LinkedHashMap<String ,List<Object>> limitPara;
 
     private Params(Bulider bulider){
         this.and = bulider.and;
@@ -65,10 +60,6 @@ public class Params {
         this.lessThanPara = bulider.lessThanPara;
         this.moreThan = bulider.moreThan;
         this.moreThanPara = bulider.moreThanPara;
-        /*this.isNull = bulider.isNull;
-        this.isNullPara = bulider.isNullPara;
-        this.isNotNull = bulider.isNotNull;
-        this.isNotNullPara = bulider.isNotNullPara;*/
         this.like = bulider.like;
         this.likePara = bulider.likePara;
         this.notLike = bulider.notLike;
@@ -97,19 +88,13 @@ public class Params {
         private LinkedHashMap<String ,Object> orPara;
 
         private List<String> between;
-        private LinkedHashMap<String ,List> betweenPara;
+        private LinkedHashMap<String, List> betweenPara;
 
         private List<String> lessThan;
         private LinkedHashMap<String ,Object> lessThanPara;
 
         private List<String> moreThan;
         private LinkedHashMap<String ,Object> moreThanPara;
-
-       /* private List<String> isNull;
-        private LinkedHashMap<String ,Object> isNullPara;
-
-        private List<String> isNotNull;
-        private LinkedHashMap<String ,Object> isNotNullPara;*/
 
         private List<String> like;
         private LinkedHashMap<String ,Object> likePara;
@@ -124,15 +109,15 @@ public class Params {
         private LinkedHashMap<String ,Object> notPara;
 
         private List<String> in;
-        private LinkedHashMap<String ,List> inPara;
+        private LinkedHashMap<String, List> inPara;
 
         private List<String> notIn;
-        private LinkedHashMap<String ,List> notInPara;
+        private LinkedHashMap<String, List> notInPara;
 
         private List<String> limit;
-        private LinkedHashMap<String ,List> limitPara;
+        private LinkedHashMap<String, List<Object>> limitPara;
 
-        public Bulider Euqal(String key , Object value){
+        public Bulider euqal(String key , Object value){
             this.and = new ArrayList<>();
             this.andPara = new LinkedHashMap<>();
             this.and.add("=");
@@ -140,7 +125,7 @@ public class Params {
             return this;
         }
 
-        public Bulider Or(String key , Object value){
+        public Bulider or(String key , Object value){
             this.or = new ArrayList<>();
             this.orPara = new LinkedHashMap<>();
             this.or.add("or");
@@ -148,10 +133,10 @@ public class Params {
             return this;
         }
 
-        public Bulider Between(String key , Object value1 , Object value2){
+        public Bulider between(String key , Object value1 , Object value2){
             this.between = new ArrayList<>();
             this.betweenPara = new LinkedHashMap<>();
-            List value = new ArrayList();
+            List<Object> value = new ArrayList<>();
             value.add(value1);
             value.add(value2);
             this.between.add("between");
@@ -159,7 +144,7 @@ public class Params {
             return this;
         }
 
-        public Bulider LessThan(String key , Object value){
+        public Bulider lessThan(String key , Object value){
             this.lessThan = new ArrayList<>();
             this.lessThanPara = new LinkedHashMap<>();
             this.lessThan.add("<");
@@ -167,7 +152,7 @@ public class Params {
             return this;
         }
 
-        public Bulider MoreThan(String key , Object value){
+        public Bulider moreThan(String key , Object value){
             this.moreThan = new ArrayList<>();
             this.moreThanPara = new LinkedHashMap<>();
             this.moreThan.add(">");
@@ -175,23 +160,7 @@ public class Params {
             return this;
         }
 
-        /*public Bulider IsNull(String key , Object value){
-            this.isNull = new ArrayList<>();
-            this.isNullPara = new LinkedHashMap<>();
-            this.isNull.add("isnull");
-            this.isNullPara.put(key,value);
-            return this;
-        }
-
-        public Bulider IsNotNull(String key , Object value){
-            this.isNotNull = new ArrayList<>();
-            this.isNotNullPara = new LinkedHashMap<>();
-            this.isNotNull.add("isnotnull");
-            this.isNotNullPara.put(key,value);
-            return this;
-        }*/
-
-        public Bulider Like(String key , Object value){
+        public Bulider like(String key , Object value){
             this.like = new ArrayList<>();
             this.likePara = new LinkedHashMap<>();
             this.like.add("like");
@@ -199,7 +168,7 @@ public class Params {
             return this;
         }
 
-        public Bulider NotLike(String key , Object value){
+        public Bulider notLike(String key , Object value){
             this.notLike = new ArrayList<>();
             this.notLikePara = new LinkedHashMap<>();
             this.notLike.add("notlike");
@@ -207,7 +176,7 @@ public class Params {
             return this;
         }
 
-        public Bulider OrderBy(String key , Object value){
+        public Bulider orderBy(String key , Object value){
             this.orderBy = new ArrayList<>();
             this.orderByPara = new LinkedHashMap<>();
             this.orderBy.add("orderby");
@@ -215,7 +184,7 @@ public class Params {
             return this;
         }
 
-        public Bulider NotEqual(String key , Object value){
+        public Bulider notEqual(String key , Object value){
             this.not = new ArrayList<>();
             this.notPara = new LinkedHashMap<>();
             this.not.add("!=");
@@ -223,34 +192,28 @@ public class Params {
             return this;
         }
 
-        public Bulider In(String key , Object ... values){
+        public Bulider in(String key , Object ... values){
             this.in = new ArrayList<>();
             this.inPara = new LinkedHashMap<>();
-            List list = new ArrayList();
-            for (Object value : values) {
-                list.add(value);
-            }
+            List<Object> list = new ArrayList<>(Arrays.asList(values));
             this.in.add("in");
             this.inPara.put(key,list);
             return this;
         }
 
-        public Bulider NotIn(String key , Object ... values){
+        public Bulider notIn(String key , Object ... values){
             this.notIn = new ArrayList<>();
             this.notInPara = new LinkedHashMap<>();
-            List list = new ArrayList();
-            for (Object value : values) {
-                list.add(value);
-            }
+            List<Object> list = new ArrayList<>(Arrays.asList(values));
             this.notIn.add("notin");
             this.notInPara.put(key,list);
             return this;
         }
 
-        public Bulider Limit(Integer value1 , Integer value2){
+        public Bulider limit(Integer value1 , Integer value2){
             this.limit = new ArrayList<>();
             this.limitPara = new LinkedHashMap<>();
-            List<Integer> list = new ArrayList();
+            List<Object> list = new ArrayList<>();
             list.add(value1);
             list.add(value2);
             this.limit.add("limit");
