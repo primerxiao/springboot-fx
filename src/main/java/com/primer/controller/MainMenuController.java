@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.effects.JFXDepthManager;
 import com.primer.MainApplication;
 import com.primer.common.constanst.StyleConstanst;
+import com.primer.common.util.AlertUtils;
 import com.primer.entity.AppToolList;
 import com.primer.jfxsupport.AbstractFxmlView;
 import com.primer.jfxsupport.FXMLController;
@@ -55,8 +56,8 @@ public class MainMenuController implements Initializable {
             label.setOnMouseClicked((e) -> {
                 try {
                     MainApplication.showView((Class<? extends AbstractFxmlView>) Class.forName(appToolList.getToolViewClass()), getModality(appToolList.getToolOpenModality()));
-                } catch (ClassNotFoundException classNotFoundException) {
-                    classNotFoundException.printStackTrace();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             });
         }
