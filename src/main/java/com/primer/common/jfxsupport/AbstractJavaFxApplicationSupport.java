@@ -1,6 +1,7 @@
 package com.primer.common.jfxsupport;
 
 import com.primer.MainApplication;
+import com.primer.common.constant.JavafxConstant;
 import com.primer.gui.main.MainMenuView;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -99,7 +100,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
 
     private void loadIcons(ConfigurableApplicationContext ctx) {
         try {
-            final List<String> fsImages = PropertyReaderHelper.get(ctx.getEnvironment(), Constant.KEY_APPICONS);
+            final List<String> fsImages = PropertyReaderHelper.get(ctx.getEnvironment(), JavafxConstant.KEY_APPICONS);
             if (! fsImages.isEmpty()) {
                 fsImages.forEach((s) -> {
                     Image img = new Image(getClass().getResource(s).toExternalForm());
@@ -166,7 +167,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
      * Show initial view.
      */
     private void showInitialView() {
-        final String stageStyle = applicationContext.getEnvironment().getProperty(Constant.KEY_STAGE_STYLE);
+        final String stageStyle = applicationContext.getEnvironment().getProperty(JavafxConstant.KEY_STAGE_STYLE);
         if (stageStyle != null) {
             GUIState.getStage().initStyle(StageStyle.valueOf(stageStyle.toUpperCase()));
         }
@@ -228,16 +229,16 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
      * Apply env props to view.
      */
     private static void applyEnvPropsToView() {
-        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), Constant.KEY_TITLE, String.class,
+        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_TITLE, String.class,
                                           GUIState.getStage()::setTitle);
 
-        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), Constant.KEY_STAGE_WIDTH, Double.class,
+        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_STAGE_WIDTH, Double.class,
                                           GUIState.getStage()::setWidth);
 
-        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), Constant.KEY_STAGE_HEIGHT, Double.class,
+        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_STAGE_HEIGHT, Double.class,
                                           GUIState.getStage()::setHeight);
 
-        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), Constant.KEY_STAGE_RESIZABLE, Boolean.class,
+        PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_STAGE_RESIZABLE, Boolean.class,
                                           GUIState.getStage()::setResizable);
     }
 

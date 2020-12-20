@@ -1,5 +1,5 @@
-package com.primer.common.constanst;
+package com.primer.common.constant;
 
-public class StyleConstanst {
+public class StyleConstant {
     public static final String FX_BACKGROUND_COLOR_WHITE = "-fx-background-color:WHITE;";
 }

@@ -3,7 +3,7 @@ package com.primer.gui.main;
 import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.effects.JFXDepthManager;
 import com.primer.MainApplication;
-import com.primer.common.constanst.StyleConstanst;
+import com.primer.common.constant.StyleConstant;
 import com.primer.common.jfxsupport.AbstractFxmlView;
 import com.primer.common.jfxsupport.FXMLController;
 import com.primer.entity.AppToolList;
@@ -41,7 +41,7 @@ public class MainMenuController implements Initializable {
         List<AppToolList> appToolLists = appToolListService.findAll(AppToolList.class);
         for (AppToolList appToolList : appToolLists) {
             Label label = new Label(appToolList.getToolName());
-            label.setStyle(StyleConstanst.FX_BACKGROUND_COLOR_WHITE);
+            label.setStyle(StyleConstant.FX_BACKGROUND_COLOR_WHITE);
             label.setPadding(new Insets(20));
             JFXRippler rippler = new JFXRippler(label);
             flowPane.getChildren().add(rippler);
@@ -55,7 +55,7 @@ public class MainMenuController implements Initializable {
             });
         }
         StackPane.setMargin(flowPane, new Insets(50));
-        stackPane.setStyle(StyleConstanst.FX_BACKGROUND_COLOR_WHITE);
+        stackPane.setStyle(StyleConstant.FX_BACKGROUND_COLOR_WHITE);
     }
 
     public Modality getModality(Integer modality) {

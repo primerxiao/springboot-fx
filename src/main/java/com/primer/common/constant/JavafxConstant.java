@@ -1,6 +1,6 @@
-package com.primer.common.jfxsupport;
+package com.primer.common.constant;
 
-class Constant {
+class JavafxConstant {
 	public final static String KEY_STAGE_STYLE = "javafx.stage.style";
 	public final static String KEY_TITLE = "javafx.title";
 	public final static String KEY_STAGE_WIDTH = "javafx.stage.width";
