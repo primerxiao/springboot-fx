@@ -1,6 +1,9 @@
 package com.primer.common.constant;
 
-class JavafxConstant {
+/**
+ * @author 肖均辉
+ */
+public class JavafxConstant {
 	public final static String KEY_STAGE_STYLE = "javafx.stage.style";
 	public final static String KEY_TITLE = "javafx.title";
 	public final static String KEY_STAGE_WIDTH = "javafx.stage.width";

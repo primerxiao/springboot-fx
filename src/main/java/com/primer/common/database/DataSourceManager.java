@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 数据源管理器
+ * @author 肖均辉
+ */
 public class DataSourceManager {
 
     public static Map<String, DruidDataSource> dataSourceMap;
@@ -18,8 +22,8 @@ public class DataSourceManager {
     /**
      * 添加数据源
      *
-     * @param key
-     * @param druidDataSource
+     * @param key 标识
+     * @param druidDataSource 数据源
      */
     public static void addDataSource(String key, DruidDataSource druidDataSource) {
         if (druidDataSource == null) {
@@ -35,7 +39,7 @@ public class DataSourceManager {
     /**
      * 移除数据源
      *
-     * @param key
+     * @param key  标识
      */
     public static void removeDataSource(String key) {
         dataSourceMap.remove(key);
@@ -65,9 +69,9 @@ public class DataSourceManager {
 
     /**
      * 根据数据源key获取连接
-     * @param key
+     * @param key  标识
      * @return 连接
-     * @throws SQLException
+     * @throws SQLException sql异常
      */
     public static DruidPooledConnection getConnection(String key) throws SQLException {
         if (!dataSourceMap.containsKey(key)) {

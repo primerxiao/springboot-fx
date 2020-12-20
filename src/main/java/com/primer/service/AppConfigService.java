@@ -8,6 +8,7 @@ import java.util.List;
  * @author HIFeng
  */
 public interface AppConfigService {
+
     AppConfig findByConfigCode(String configCode);
 
     AppConfig save(AppConfig appConfig);

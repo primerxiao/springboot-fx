@@ -1,7 +1,7 @@
 package com.primer.gui.uicomponents.versionelper;
 
 import com.primer.common.constant.GitCommitCacheDate;
-import com.primer.common.jfxsupport.FXMLController;
+import com.primer.common.annotation.FXMLController;
 import com.primer.common.util.AlertUtils;
 import com.primer.entity.GitlabMilestone;
 import javafx.concurrent.Worker;

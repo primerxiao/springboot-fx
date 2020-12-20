@@ -6,6 +6,8 @@ create table app_config
     config_class text,
     config_value text
 );
+
+-- 工具配置列表
 create table app_tool_list
 (
     id text not null

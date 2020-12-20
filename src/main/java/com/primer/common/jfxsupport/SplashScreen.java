@@ -26,10 +26,8 @@ public class SplashScreen {
 		final ImageView imageView = new ImageView(getClass().getResource(getImagePath()).toExternalForm());
 		final ProgressBar splashProgressBar = new ProgressBar();
 		splashProgressBar.setPrefWidth(imageView.getImage().getWidth());
-
 		final VBox vbox = new VBox();
 		vbox.getChildren().addAll(imageView, splashProgressBar);
-
 		return vbox;
 	}
 

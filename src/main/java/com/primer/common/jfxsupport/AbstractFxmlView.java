@@ -1,5 +1,7 @@
 package com.primer.common.jfxsupport;
 
+import com.primer.common.annotation.FXMLView;
+import com.primer.common.constant.GUIState;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

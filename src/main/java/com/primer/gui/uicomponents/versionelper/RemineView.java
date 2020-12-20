@@ -2,7 +2,7 @@ package com.primer.gui.uicomponents.versionelper;
 
 
 import com.primer.common.jfxsupport.AbstractFxmlView;
-import com.primer.common.jfxsupport.FXMLView;
+import com.primer.common.annotation.FXMLView;
 
 /**
  * app的主界面视图

@@ -1,4 +1,4 @@
-package com.primer.common.jfxsupport;
+package com.primer.common.constant;
 
 import javafx.application.HostServices;
 import javafx.scene.Scene;
@@ -15,15 +15,34 @@ import java.awt.*;
  */
 public enum GUIState {
 
+	/**
+	 *
+	 */
 	INSTANCE;
+
+	/**
+	 * 场景
+	 */
 	private static Scene scene;
 
+	/**
+	 * 阶段
+	 */
 	private static Stage stage;
 
+	/**
+	 * 标题
+	 */
 	private static String title;
-	
+
+	/**
+	 * 服务
+	 */
 	private static HostServices hostServices;
 
+	/**
+	 * 后台运行的托盘程序
+	 */
 	private static SystemTray systemTray;
 	
 	public static String getTitle() {
@@ -54,7 +73,7 @@ public enum GUIState {
         return hostServices;
     }
 
-    static void setHostServices(HostServices hostServices) {
+    public static void setHostServices(HostServices hostServices) {
         GUIState.hostServices = hostServices;
     }
 
@@ -62,7 +81,7 @@ public enum GUIState {
         return systemTray;
     }
 
-    static void setSystemTray(SystemTray systemTray) {
+    public static void setSystemTray(SystemTray systemTray) {
         GUIState.systemTray = systemTray;
     }
 

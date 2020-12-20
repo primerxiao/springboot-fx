@@ -1,4 +1,4 @@
-package com.primer.common.jfxsupport;
+package com.primer.common.annotation;
 
 import org.springframework.stereotype.Component;
 

@@ -5,7 +5,8 @@ import com.jfoenix.effects.JFXDepthManager;
 import com.primer.MainApplication;
 import com.primer.common.constant.StyleConstant;
 import com.primer.common.jfxsupport.AbstractFxmlView;
-import com.primer.common.jfxsupport.FXMLController;
+import com.primer.common.annotation.FXMLController;
+import com.primer.common.util.AlertUtils;
 import com.primer.entity.AppToolList;
 import com.primer.service.CommonService;
 import javafx.fxml.Initializable;
@@ -51,6 +52,7 @@ public class MainMenuController implements Initializable {
                     MainApplication.showView((Class<? extends AbstractFxmlView>) Class.forName(appToolList.getToolViewClass()), getModality(appToolList.getToolOpenModality()));
                 } catch (Exception exception) {
                     exception.printStackTrace();
+                    AlertUtils.jfxAlert(label, null, exception.toString());
                 }
             });
         }

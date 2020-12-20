@@ -1,6 +1,7 @@
 package com.primer.common.jfxsupport;
 
 import com.primer.MainApplication;
+import com.primer.common.constant.GUIState;
 import com.primer.common.constant.JavafxConstant;
 import com.primer.gui.main.MainMenuView;
 import javafx.application.Application;

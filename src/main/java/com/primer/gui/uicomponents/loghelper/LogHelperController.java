@@ -3,7 +3,7 @@ package com.primer.gui.uicomponents.loghelper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.primer.common.jfxsupport.FXMLController;
+import com.primer.common.annotation.FXMLController;
 import com.primer.gui.main.AppBaseController;
 import com.primer.entity.LogFileList;
 import com.primer.entity.SysProject;

@@ -190,27 +190,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.primer.MainApplication</mainClass>
-                </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <release>1.8</release>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.openjfx</groupId>
+                <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.3</version>
+                <version>8.8.3</version>
                 <configuration>
-                    <release>1.8</release>
-                    <jlinkImageName>hellofx</jlinkImageName>
-                    <launcher>launcher</launcher>
                     <mainClass>com.primer.MainApplication</mainClass>
+                    <vendor>primer</vendor>
                 </configuration>
             </plugin>
         </plugins>

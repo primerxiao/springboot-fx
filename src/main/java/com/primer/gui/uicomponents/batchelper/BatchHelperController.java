@@ -7,7 +7,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Lists;
 import com.primer.common.database.DataSourceManager;
 import com.primer.common.database.DataToSql;
-import com.primer.common.jfxsupport.FXMLController;
+import com.primer.common.annotation.FXMLController;
 import com.primer.common.util.AlertUtils;
 import com.primer.repository.DataExportConfigRepository;
 import com.primer.repository.DataSourceConfigRepository;

@@ -4,12 +4,14 @@ import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXSpinner;
+import com.sun.istack.NotNull;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,12 +24,14 @@ public class AlertUtils {
      * @param heading 标题
      * @param body 弹框展示内容
      */
-    public static void jfxAlert(Node node, String heading, String body) {
+    public static void jfxAlert(@NotNull Node node, String heading,@NotNull String body) {
         JFXAlert<Window> alert = new JFXAlert<>((Stage) node.getScene().getWindow());
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.setOverlayClose(false);
         JFXDialogLayout layout = new JFXDialogLayout();
-        layout.setHeading(new Label(heading));
+        if (StringUtils.isNotEmpty(heading)) {
+            layout.setHeading(new Label(heading));
+        }
         layout.setBody(new Label(body));
         JFXButton closeButton = new JFXButton("确定");
         closeButton.getStyleClass().add("dialog-accept");

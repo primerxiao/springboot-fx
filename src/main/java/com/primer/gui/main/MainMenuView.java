@@ -2,7 +2,7 @@ package com.primer.gui.main;
 
 
 import com.primer.common.jfxsupport.AbstractFxmlView;
-import com.primer.common.jfxsupport.FXMLView;
+import com.primer.common.annotation.FXMLView;
 
 /**
  * @author 肖均辉
