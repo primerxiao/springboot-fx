@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.versionelper;
+package com.primer.gui.uicomponents.version;
 
 import com.primer.MainApplication;
 import com.primer.common.annotation.AppConfigAnnotation;

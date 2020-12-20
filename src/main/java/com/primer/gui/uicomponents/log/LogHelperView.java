@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.loghelper;
+package com.primer.gui.uicomponents.log;
 
 
 import com.primer.common.jfxsupport.AbstractFxmlView;

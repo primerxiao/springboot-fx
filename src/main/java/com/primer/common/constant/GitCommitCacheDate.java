@@ -1,6 +1,6 @@
 package com.primer.common.constant;
 
-import com.primer.gui.uicomponents.versionelper.CommitInfo;
+import com.primer.gui.uicomponents.version.CommitInfo;
 
 import java.util.ArrayList;
 import java.util.List;

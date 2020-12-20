@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.batchelper;
+package com.primer.gui.uicomponents.batch;
 
 
 import com.primer.common.jfxsupport.AbstractFxmlView;

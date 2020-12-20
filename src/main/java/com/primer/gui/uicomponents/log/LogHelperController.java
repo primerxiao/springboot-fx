@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.loghelper;
+package com.primer.gui.uicomponents.log;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;

@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.batchelper;
+package com.primer.gui.uicomponents.batch;
 
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
