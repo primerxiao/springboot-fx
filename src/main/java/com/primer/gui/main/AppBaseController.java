@@ -122,6 +122,10 @@ public class AppBaseController {
         }
         if ("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>".equals(field.getGenericType().toString())) {
             ChoiceBox<GitlabMilestone> choiceBox = (ChoiceBox<GitlabMilestone>) fieldGetMethod.invoke(this);
+            GitlabMilestone selectedItem = choiceBox.getSelectionModel().getSelectedItem();
+            if (Objects.isNull(selectedItem)) {
+                return null;
+            }
             return choiceBox.getSelectionModel().getSelectedItem().getId();
         }
         return null;
