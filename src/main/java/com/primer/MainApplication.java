@@ -1,9 +1,8 @@
 package com.primer;
 
-import com.primer.jfxsupport.AbstractJavaFxApplicationSupport;
-import com.primer.view.BatchHelperView;
-import com.primer.view.MainMenuView;
-import javafx.application.Platform;
+
+import com.primer.common.jfxsupport.AbstractJavaFxApplicationSupport;
+import com.primer.gui.main.MainMenuView;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.web.WebView?>
 
-<BorderPane fx:id="borderPane" prefHeight="727.0" prefWidth="1269.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.primer.controller.BatchHelperController">
+<BorderPane fx:id="borderPane" prefHeight="727.0" prefWidth="1269.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.primer.gui.uicomponents.batchelper.BatchHelperController">
    <center>
       <AnchorPane prefHeight="556.0" prefWidth="390.0" BorderPane.alignment="CENTER">
          <children>

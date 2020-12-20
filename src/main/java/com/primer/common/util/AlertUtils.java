@@ -3,6 +3,7 @@ package com.primer.common.util;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSpinner;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -34,6 +35,24 @@ public class AlertUtils {
         layout.setActions(closeButton);
         alert.setContent(layout);
         alert.show();
+    }
+
+    /**
+     * 显示loading效果
+     * @param node 节点
+     */
+    public static JFXAlert<Window> showLoading(Node node) {
+        JFXAlert<Window> alert = new JFXAlert<>((Stage) node.getScene().getWindow());
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setOverlayClose(false);
+        alert.setContent(new JFXSpinner());
+        alert.getDialogPane().getContent().setStyle("-fx-background:transparent;");
+        alert.show();
+        return alert;
+    }
+
+    public static void hideLoading(JFXAlert<Window> jfxAlert) {
+        jfxAlert.hideWithAnimation();
     }
 
     public static void alertError(String message) {
