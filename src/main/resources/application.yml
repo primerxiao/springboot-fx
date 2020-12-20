@@ -22,3 +22,9 @@ gitlab:
   url: http://10.139.6.26:7077/
 
 
+app:
+  tool:
+    dubbo:
+      addrs: zookeeper://127.0.0.1:2181,zookeeper://10.139.8.160:2181
+
+
