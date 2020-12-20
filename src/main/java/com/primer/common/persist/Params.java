@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 
 /**
  * 自定义参数
+ * @author 肖均辉
  */
 @Data
 public class Params {

@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * 对象数据转换成sql
+ * @author 肖均辉
  */
 @Data
 @AllArgsConstructor

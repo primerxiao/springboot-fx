@@ -94,12 +94,12 @@ public class AppBaseController {
                 if (Objects.isNull(fieldGetMethod)) {
                     continue;
                 }
-                if (declaredField.getGenericType().toString().equals("class javafx.scene.control.TextField")) {
+                if ("class javafx.scene.control.TextField".equals(declaredField.getGenericType().toString())) {
                     TextField textField = (TextField) fieldGetMethod.invoke(appBaseController);
                     textField.setText(byConfigCode.getConfigValue());
                     continue;
                 }
-                if (declaredField.getGenericType().toString().equals("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>")) {
+                if ("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>".equals(declaredField.getGenericType().toString())) {
                     ChoiceBox<GitlabMilestone> choiceBox = (ChoiceBox<GitlabMilestone>) fieldGetMethod.invoke(this);
                     for (GitlabMilestone item : choiceBox.getItems()) {
                         if (item.getId() == Integer.parseInt(byConfigCode.getConfigValue())) {
@@ -116,11 +116,11 @@ public class AppBaseController {
         if (Objects.isNull(fieldGetMethod)) {
             return null;
         }
-        if (field.getGenericType().toString().equals("class javafx.scene.control.TextField")) {
+        if ("class javafx.scene.control.TextField".equals(field.getGenericType().toString())) {
             TextField textField = (TextField) fieldGetMethod.invoke(this);
             return textField.getText();
         }
-        if (field.getGenericType().toString().equals("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>")) {
+        if ("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>".equals(field.getGenericType().toString())) {
             ChoiceBox<GitlabMilestone> choiceBox = (ChoiceBox<GitlabMilestone>) fieldGetMethod.invoke(this);
             return choiceBox.getSelectionModel().getSelectedItem().getId();
         }
