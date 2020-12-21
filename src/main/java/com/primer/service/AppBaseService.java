@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author HIFeng
  */
-public interface AppConfigService {
+public interface AppBaseService {
 
     AppConfig findByConfigCode(String configCode);
 

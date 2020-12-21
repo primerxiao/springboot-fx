@@ -1,21 +1,19 @@
 package com.primer.gui.main;
 
-import com.primer.common.annotation.AppConfigAnnotation;
-import com.primer.repository.SysDbRepository;
-import com.primer.repository.SysEnvRepository;
-import com.primer.repository.SysProjectRepository;
-import com.primer.repository.SysServerRepository;
+import com.primer.common.annotation.AutoConfig;
 import com.primer.entity.AppConfig;
 import com.primer.entity.GitlabMilestone;
-import com.primer.service.AppConfigService;
+import com.primer.repository.SysProjectRepository;
+import com.primer.service.AppBaseService;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
@@ -27,34 +25,26 @@ import java.util.Objects;
 public class AppBaseController {
 
     @Autowired
-    public AppConfigService appConfigService;
-
-    @Autowired
-    public SysDbRepository sysDbRepository;
-
-    @Autowired
-    public SysEnvRepository sysEnvRepository;
+    public AppBaseService appBaseService;
 
     @Autowired
     public SysProjectRepository sysProjectRepository;
 
-    @Autowired
-    public SysServerRepository sysServerRepository;
 
     /**
      * 保存配置到数据库
      */
     @FXML
-    public void saveAppConfig() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public void saveAppConfig() throws Exception {
         Field[] fields = this.getClass().getDeclaredFields();
         for (Field field : fields) {
-            AppConfigAnnotation configAnnotation = field.getDeclaredAnnotation(AppConfigAnnotation.class);
+            AutoConfig configAnnotation = field.getDeclaredAnnotation(AutoConfig.class);
             if (!Objects.isNull(configAnnotation)) {
                 //适用于配置
                 field.setAccessible(true);
                 String fieldName = field.getName();
                 //获取数据库的配置
-                AppConfig byConfigCode = appConfigService.findByConfigCode(this.getClass().getSimpleName() + "_" +WordUtils.capitalize(fieldName));
+                AppConfig byConfigCode = appBaseService.findByConfigCode(this.getClass().getSimpleName() + "_" + WordUtils.capitalize(fieldName));
                 if (Objects.isNull(byConfigCode)) {
                     //获取到配置为空不做处理
                     byConfigCode = new AppConfig();
@@ -63,10 +53,10 @@ public class AppBaseController {
                 if (Objects.isNull(fieldConfigValue)) {
                     continue;
                 }
-                byConfigCode.setConfigCode(this.getClass().getSimpleName()+"_"+WordUtils.capitalize(fieldName));
+                byConfigCode.setConfigCode(this.getClass().getSimpleName() + "_" + WordUtils.capitalize(fieldName));
                 byConfigCode.setConfigClass(field.getGenericType().toString());
                 byConfigCode.setConfigValue(String.valueOf(fieldConfigValue));
-                appConfigService.save(byConfigCode);
+                appBaseService.save(byConfigCode);
             }
         }
     }
@@ -74,17 +64,17 @@ public class AppBaseController {
     /**
      * 初始化配置到程序
      */
-    public void initAppConfig(AppBaseController appBaseController) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void initAppConfig(AppBaseController appBaseController) throws Exception {
         //配置的code为类名+字段名
         Field[] declaredFields = appBaseController.getClass().getDeclaredFields();
         for (Field declaredField : declaredFields) {
-            AppConfigAnnotation configAnnotation = declaredField.getDeclaredAnnotation(AppConfigAnnotation.class);
+            AutoConfig configAnnotation = declaredField.getDeclaredAnnotation(AutoConfig.class);
             if (!Objects.isNull(configAnnotation)) {
                 //适用于配置
                 declaredField.setAccessible(true);
                 String fieldName = declaredField.getName();
                 //获取数据库的配置
-                AppConfig byConfigCode = appConfigService.findByConfigCode(appBaseController.getClass().getSimpleName() + "_" +WordUtils.capitalize(fieldName));
+                AppConfig byConfigCode = appBaseService.findByConfigCode(appBaseController.getClass().getSimpleName() + "_" + WordUtils.capitalize(fieldName));
                 if (Objects.isNull(byConfigCode)) {
                     //获取到配置为空不做处理
                     continue;
@@ -94,10 +84,22 @@ public class AppBaseController {
                 if (Objects.isNull(fieldGetMethod)) {
                     continue;
                 }
-                if ("class javafx.scene.control.TextField".equals(declaredField.getGenericType().toString())) {
-                    TextField textField = (TextField) fieldGetMethod.invoke(appBaseController);
-                    textField.setText(byConfigCode.getConfigValue());
+                Object fieldObject = fieldGetMethod.invoke(appBaseController);
+                if (Objects.isNull(fieldObject)) {
                     continue;
+                }
+                if (fieldObject instanceof TextField) {
+                    ((TextField) fieldObject).setText(byConfigCode.getConfigValue());
+                    continue;
+                }
+                // combobox
+                if (fieldObject instanceof ComboBox) {
+                    //获取泛化对象
+                    String genericTypeStr = declaredField.getGenericType().toString();
+                    //String
+                    if (genericTypeStr.contains(String.class.getName())) {
+                        ((ComboBox<String>) fieldObject).getSelectionModel().select(byConfigCode.getConfigValue());
+                    }
                 }
                 if ("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>".equals(declaredField.getGenericType().toString())) {
                     ChoiceBox<GitlabMilestone> choiceBox = (ChoiceBox<GitlabMilestone>) fieldGetMethod.invoke(this);
@@ -111,15 +113,30 @@ public class AppBaseController {
         }
     }
 
-    private Object getFieldConfigValue(Field field) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object getFieldConfigValue(Field field) throws Exception {
         Method fieldGetMethod = this.getClass().getMethod("get" + WordUtils.capitalize(field.getName()));
         if (Objects.isNull(fieldGetMethod)) {
             return null;
         }
-        if ("class javafx.scene.control.TextField".equals(field.getGenericType().toString())) {
-            TextField textField = (TextField) fieldGetMethod.invoke(this);
-            return textField.getText();
+        Object fieldObject = fieldGetMethod.invoke(this);
+        if (Objects.isNull(fieldObject)) {
+            return null;
         }
+        // textfield
+        if (fieldObject instanceof TextField) {
+            return ((TextField) fieldObject).getText();
+        }
+        // combobox
+        if (fieldObject instanceof ComboBox) {
+            //获取泛化对象
+            String genericTypeStr = field.getGenericType().toString();
+            //String
+            if (genericTypeStr.contains(String.class.getName())) {
+                String selectedItem = ((ComboBox<String>) fieldObject).getSelectionModel().getSelectedItem();
+                return StringUtils.isEmpty(selectedItem) ? null : selectedItem;
+            }
+        }
+
         if ("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>".equals(field.getGenericType().toString())) {
             ChoiceBox<GitlabMilestone> choiceBox = (ChoiceBox<GitlabMilestone>) fieldGetMethod.invoke(this);
             GitlabMilestone selectedItem = choiceBox.getSelectionModel().getSelectedItem();

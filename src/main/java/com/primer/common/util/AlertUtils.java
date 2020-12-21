@@ -42,6 +42,30 @@ public class AlertUtils {
     }
 
     /**
+     * jfx样式的弹框
+     * @param node 触发弹框的节点
+     * @param heading 标题
+     * @param body 弹框展示内容
+     */
+    public static void jfxAlert(@NotNull Node node, String heading,@NotNull Object body) {
+        JFXAlert<Window> alert = new JFXAlert<>((Stage) node.getScene().getWindow());
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setOverlayClose(false);
+        JFXDialogLayout layout = new JFXDialogLayout();
+        if (StringUtils.isNotEmpty(heading)) {
+            layout.setHeading(new Label(heading));
+        }
+        layout.setBody(new Label(body.toString()));
+        JFXButton closeButton = new JFXButton("确定");
+        closeButton.getStyleClass().add("dialog-accept");
+        closeButton.setOnAction(event -> alert.hideWithAnimation());
+        layout.setActions(closeButton);
+        alert.setContent(layout);
+        alert.show();
+    }
+
+
+    /**
      * 显示loading效果
      * @param node 节点
      */

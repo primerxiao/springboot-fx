@@ -145,6 +145,16 @@
             <artifactId>jfoenix</artifactId>
             <version>8.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome5-pack</artifactId>
+            <version>2.4.0</version>
+        </dependency>
         <!--功能相关-->
         <dependency>
             <groupId>org.projectlombok</groupId>

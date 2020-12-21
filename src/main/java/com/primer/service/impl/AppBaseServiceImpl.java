@@ -2,7 +2,7 @@ package com.primer.service.impl;
 
 import com.primer.repository.AppConfigRepository;
 import com.primer.entity.AppConfig;
-import com.primer.service.AppConfigService;
+import com.primer.service.AppBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @author HIFeng
  */
 @Service
-public class AppConfigServiceImpl implements AppConfigService {
+public class AppBaseServiceImpl implements AppBaseService {
 
     @Autowired
     private AppConfigRepository appConfigRepository;

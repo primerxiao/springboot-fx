@@ -1,7 +1,7 @@
 package com.primer.gui.uicomponents.version;
 
 import com.primer.MainApplication;
-import com.primer.common.annotation.AppConfigAnnotation;
+import com.primer.common.annotation.AutoConfig;
 import com.primer.common.constant.GitCommitCacheDate;
 import com.primer.common.annotation.FXMLController;
 import com.primer.common.util.AlertUtils;
@@ -53,36 +53,36 @@ import java.util.stream.Collectors;
 @FXMLController
 public class VersionHelperController extends AppBaseController implements Initializable {
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField gitAccount;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField gitPassword;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField remindAccount;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField remindPassword;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField sourceBranch;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField targetBranch;
     @FXML
     public Label tip;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField startDate;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField endDate;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public ChoiceBox<GitlabMilestone> mileStone;
     @FXML
-    @AppConfigAnnotation
+    @AutoConfig
     public TextField remineCnName;
 
 
