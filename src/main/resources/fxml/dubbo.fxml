@@ -4,11 +4,10 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToolbar?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import com.jfoenix.validation.RequiredFieldValidator?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0"
@@ -16,7 +15,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.primer.gui.uicomponents.dubbo.DubboGenericController">
     <JFXTreeTableView fx:id="params" layoutX="14.0" layoutY="213.0" prefHeight="251.0" prefWidth="324.0"/>
-    <JFXTextArea fx:id="responseTxt" layoutX="425.0" layoutY="65.0" prefHeight="393.0" prefWidth="448.0"/>
+    <JFXTextArea fx:id="responseTxt" layoutX="368.0" layoutY="65.0" prefHeight="397.0" prefWidth="505.0"/>
     <JFXComboBox fx:id="dubboRegistry" layoutX="14.0" layoutY="16.0" prefHeight="23.0" prefWidth="324.0"
                  promptText="registry">
         <validators>
@@ -54,15 +53,12 @@
             </RequiredFieldValidator>
         </validators>
     </JFXTextField>
-    <JFXToolbar layoutX="425.0" layoutY="27.0">
-        <center>
-            <JFXButton buttonType="RAISED" onAction="#saveAppConfig"
-                       style="-fx-font-size:14px;-fx-background-color:WHITE;" text="保存配置"
-                       BorderPane.alignment="CENTER"/>
-        </center>
-        <left>
-            <JFXButton fx:id="callButton" buttonType="RAISED" style="-fx-font-size:14px;-fx-background-color:WHITE;"
-                       text="发起请求" BorderPane.alignment="CENTER"/>
-        </left>
-    </JFXToolbar>
+    <ToolBar layoutX="368.0" layoutY="9.0" prefHeight="40.0" prefWidth="512.0" style="-fx-background-color: WHITE;">
+        <items>
+            <JFXButton fx:id="callButton" buttonType="RAISED" ripplerFill="#42bc5c"
+                       style="-fx-font-size:14px;-fx-background-color:#ffffff;" text="发起请求" textAlignment="CENTER"/>
+            <JFXButton buttonType="RAISED" onAction="#saveAppConfig" ripplerFill="#42bc5c"
+                       style="-fx-font-size:14px;-fx-background-color:WHITE;" text="保存配置"/>
+        </items>
+    </ToolBar>
 </AnchorPane>

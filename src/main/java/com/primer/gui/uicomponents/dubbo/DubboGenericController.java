@@ -120,6 +120,7 @@ public class DubboGenericController extends AppBaseController implements Initial
                             .referenceInterface(dubboInterface.getText())
                             .referenceVersion(dubboVersion.getText())
                             .referenceGeneric(true)
+                            .registryGroup("dubbo")
                             .invokeMethod(dubboMehod.getText())
                             .invokeMethodParamType(new String[]{})
                             .invokeMethodParam(new Object[]{}).build();
