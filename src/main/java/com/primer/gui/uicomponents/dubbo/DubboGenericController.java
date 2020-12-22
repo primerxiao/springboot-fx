@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Window;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,9 +28,8 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * @author 肖均辉
  */
-@EqualsAndHashCode(callSuper = true)
-@FXMLController
 @Data
+@FXMLController
 public class DubboGenericController extends AppBaseController implements Initializable {
     @Value("${app.tool.dubbo.addrs}")
     private List<String> addrs;
@@ -149,6 +147,6 @@ public class DubboGenericController extends AppBaseController implements Initial
     }
 
     private boolean validate() {
-        return ValidateUtils.validate(dubboRegistry,dubboGroup, dubboVersion, dubboInterface, dubboMehod);
+        return ValidateUtils.validate(dubboRegistry, dubboGroup, dubboVersion, dubboInterface, dubboMehod);
     }
 }

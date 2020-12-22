@@ -1,7 +1,7 @@
 package com.primer.common.config;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
@@ -18,9 +18,8 @@ public class InitializeAop {
 
     }
 
-    @Around("afterInitialize()")
-    public Object autoAppConfig(ProceedingJoinPoint joinPoint) throws Throwable {
+    @After("afterInitialize()")
+    public void autoAppConfig(JoinPoint joinPoint) throws Throwable {
         System.out.println(joinPoint.getSignature());
-        return joinPoint.proceed();
     }
 }

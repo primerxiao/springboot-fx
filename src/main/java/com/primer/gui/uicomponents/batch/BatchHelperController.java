@@ -35,6 +35,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import lombok.Data;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -64,6 +65,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
+@Data
 @FXMLController
 public class BatchHelperController implements Initializable {
 
