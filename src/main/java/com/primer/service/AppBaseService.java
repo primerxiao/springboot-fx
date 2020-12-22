@@ -1,6 +1,6 @@
 package com.primer.service;
 
-import com.primer.entity.AppConfig;
+import com.primer.entity.AppToolConfig;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface AppBaseService {
 
-    AppConfig findByConfigCode(String configCode);
+    AppToolConfig findByConfigCode(String configController, String configFiedName);
 
-    AppConfig save(AppConfig appConfig);
+    AppToolConfig save(AppToolConfig appConfig);
 
-    List<AppConfig> findAll();
+    List<AppToolConfig> findAll();
 }

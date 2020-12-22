@@ -1,7 +1,8 @@
 package com.primer.gui.main;
 
 import com.primer.common.annotation.AutoConfig;
-import com.primer.entity.AppConfig;
+import com.primer.common.util.AlertUtils;
+import com.primer.entity.AppToolConfig;
 import com.primer.entity.GitlabMilestone;
 import com.primer.repository.SysProjectRepository;
 import com.primer.service.AppBaseService;
@@ -35,29 +36,37 @@ public class AppBaseController {
      * 保存配置到数据库
      */
     @FXML
-    public void saveAppConfig() throws Exception {
-        Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            AutoConfig configAnnotation = field.getDeclaredAnnotation(AutoConfig.class);
-            if (!Objects.isNull(configAnnotation)) {
-                //适用于配置
-                field.setAccessible(true);
-                String fieldName = field.getName();
-                //获取数据库的配置
-                AppConfig byConfigCode = appBaseService.findByConfigCode(this.getClass().getSimpleName() + "_" + WordUtils.capitalize(fieldName));
-                if (Objects.isNull(byConfigCode)) {
-                    //获取到配置为空不做处理
-                    byConfigCode = new AppConfig();
+    public void saveAppConfig() {
+        try {
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                AutoConfig configAnnotation = field.getDeclaredAnnotation(AutoConfig.class);
+                if (!Objects.isNull(configAnnotation)) {
+                    //适用于配置
+                    field.setAccessible(true);
+                    String fieldName = field.getName();
+                    //获取数据库的配置
+                    AppToolConfig byConfigCode = appBaseService.findByConfigCode(this.getClass().getName(), fieldName);
+                    if (Objects.isNull(byConfigCode)) {
+                        //获取到配置为空不做处理
+                        byConfigCode = new AppToolConfig();
+                    }
+                    Object fieldConfigValue = getFieldConfigValue(field);
+                    if (Objects.isNull(fieldConfigValue)) {
+                        continue;
+                    }
+                    byConfigCode.setConfigController(this.getClass().getName());
+                    byConfigCode.setConfigFieldClass(field.getGenericType().toString());
+                    byConfigCode.setConfigFiedName(fieldName);
+                    byConfigCode.setConfigFiedValue(String.valueOf(fieldConfigValue));
+                    byConfigCode.setConfigFiedValueClass(field.getGenericType().toString());
+                    appBaseService.save(byConfigCode);
                 }
-                Object fieldConfigValue = getFieldConfigValue(field);
-                if (Objects.isNull(fieldConfigValue)) {
-                    continue;
-                }
-                byConfigCode.setConfigCode(this.getClass().getSimpleName() + "_" + WordUtils.capitalize(fieldName));
-                byConfigCode.setConfigClass(field.getGenericType().toString());
-                byConfigCode.setConfigValue(String.valueOf(fieldConfigValue));
-                appBaseService.save(byConfigCode);
             }
+            AlertUtils.jfxAlert("保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            AlertUtils.jfxAlert("保存配置异常", e);
         }
     }
 
@@ -74,7 +83,7 @@ public class AppBaseController {
                 declaredField.setAccessible(true);
                 String fieldName = declaredField.getName();
                 //获取数据库的配置
-                AppConfig byConfigCode = appBaseService.findByConfigCode(appBaseController.getClass().getSimpleName() + "_" + WordUtils.capitalize(fieldName));
+                AppToolConfig byConfigCode = appBaseService.findByConfigCode(appBaseController.getClass().getName(), fieldName);
                 if (Objects.isNull(byConfigCode)) {
                     //获取到配置为空不做处理
                     continue;
@@ -89,7 +98,7 @@ public class AppBaseController {
                     continue;
                 }
                 if (fieldObject instanceof TextField) {
-                    ((TextField) fieldObject).setText(byConfigCode.getConfigValue());
+                    ((TextField) fieldObject).setText(byConfigCode.getConfigFiedValue());
                     continue;
                 }
                 // combobox
@@ -98,13 +107,13 @@ public class AppBaseController {
                     String genericTypeStr = declaredField.getGenericType().toString();
                     //String
                     if (genericTypeStr.contains(String.class.getName())) {
-                        ((ComboBox<String>) fieldObject).getSelectionModel().select(byConfigCode.getConfigValue());
+                        ((ComboBox<String>) fieldObject).getSelectionModel().select(byConfigCode.getConfigFiedValue());
                     }
                 }
                 if ("javafx.scene.control.ChoiceBox<com.primer.entity.GitlabMilestone>".equals(declaredField.getGenericType().toString())) {
                     ChoiceBox<GitlabMilestone> choiceBox = (ChoiceBox<GitlabMilestone>) fieldGetMethod.invoke(this);
                     for (GitlabMilestone item : choiceBox.getItems()) {
-                        if (item.getId() == Integer.parseInt(byConfigCode.getConfigValue())) {
+                        if (item.getId() == Integer.parseInt(byConfigCode.getConfigFiedValue())) {
                             choiceBox.getSelectionModel().select(item);
                         }
                     }

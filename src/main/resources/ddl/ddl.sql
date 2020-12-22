@@ -1,13 +1,21 @@
-create table app_config
+-- 工具配置表
+create table app_tool_config
 (
-    config_code text not null
+    id integer
         constraint app_config_pk
             primary key,
-    config_class text,
-    config_value text
+    config_controller text not null,
+    config_fied_name text,
+    config_field_class text,
+    config_fied_value_class text,
+    config_fied_value text
 );
 
--- 工具配置列表
+create index app_tool_config__index
+    on app_tool_config (config_controller, config_fied_name);
+
+
+-- 工具列表
 create table app_tool_list
 (
     id text not null

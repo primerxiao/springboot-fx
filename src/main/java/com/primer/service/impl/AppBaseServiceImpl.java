@@ -1,7 +1,7 @@
 package com.primer.service.impl;
 
-import com.primer.repository.AppConfigRepository;
-import com.primer.entity.AppConfig;
+import com.primer.entity.AppToolConfig;
+import com.primer.repository.AppToolConfigRepository;
 import com.primer.service.AppBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +15,21 @@ import java.util.List;
 public class AppBaseServiceImpl implements AppBaseService {
 
     @Autowired
-    private AppConfigRepository appConfigRepository;
+    private AppToolConfigRepository appToolConfigRepository;
 
     @Override
-    public AppConfig findByConfigCode(String configCode) {
-        return appConfigRepository.findById(configCode).orElse(null);
-    }
-    @Override
-    public AppConfig save(AppConfig appConfig) {
-        return appConfigRepository.save(appConfig);
+    public AppToolConfig findByConfigCode(String configController, String configFiedName) {
+        return appToolConfigRepository.findByConfigControllerAndConfigFiedName(configController, configFiedName);
     }
 
     @Override
-    public List<AppConfig> findAll() {
-        return this.appConfigRepository.findAll();
+    public AppToolConfig save(AppToolConfig appConfig) {
+        return appToolConfigRepository.save(appConfig);
+    }
+
+    @Override
+    public List<AppToolConfig> findAll() {
+        return this.appToolConfigRepository.findAll();
     }
 
 }

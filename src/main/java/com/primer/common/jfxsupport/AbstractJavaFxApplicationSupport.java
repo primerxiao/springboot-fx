@@ -81,20 +81,20 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         } else {
             newScene = new Scene(view.getView());
         }
+        GUIState.setCurrentScene(newScene);
         newStage.setScene(newScene);
         newStage.initModality(mode);
         newStage.initOwner(getStage());
         newStage.setTitle(view.getDefaultTitle());
         newStage.initStyle(view.getDefaultStyle());
-
-        newStage.setOnCloseRequest(windowEvent -> {
+        /*newStage.setOnCloseRequest(windowEvent -> {
             //判断
             boolean showing = MainApplication.getStage().isShowing();
             if (!showing) {
                 MainApplication.showInitialView(MainMenuView.class);
             }
         });
-        MainApplication.getStage().hide();
+        MainApplication.getStage().hide();*/
         newStage.showAndWait();
 
     }
@@ -102,18 +102,16 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
     private void loadIcons(ConfigurableApplicationContext ctx) {
         try {
             final List<String> fsImages = PropertyReaderHelper.get(ctx.getEnvironment(), JavafxConstant.KEY_APPICONS);
-            if (! fsImages.isEmpty()) {
+            if (!fsImages.isEmpty()) {
                 fsImages.forEach((s) -> {
                     Image img = new Image(getClass().getResource(s).toExternalForm());
                     ICONS.add(img);
                 });
-            }
-            else {
+            } else {
                 // add factory images
                 ICONS.addAll(defaultIcons);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.error("Failed to load icons: ", e);
         }
     }
@@ -123,7 +121,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         // Load in JavaFx Thread and reused by Completable Future, but should no be a big deal.
         defaultIcons.addAll(loadDefaultIcons());
         CompletableFuture.supplyAsync(() ->
-            SpringApplication.run(this.getClass(), savedArgs)
+                SpringApplication.run(this.getClass(), savedArgs)
         ).whenComplete((ctx, throwable) -> {
             if (throwable != null) {
                 LOGGER.error("Failed to load spring application context: ", throwable);
@@ -146,14 +144,14 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         GUIState.setHostServices(this.getHostServices());
         final Stage splashStage = new Stage(StageStyle.TRANSPARENT);
 
-		if (AbstractJavaFxApplicationSupport.splashScreen.visible()) {
-			final Scene splashScene = new Scene(splashScreen.getParent(), Color.TRANSPARENT);
-			splashStage.setScene(splashScene);
+        if (AbstractJavaFxApplicationSupport.splashScreen.visible()) {
+            final Scene splashScene = new Scene(splashScreen.getParent(), Color.TRANSPARENT);
+            splashStage.setScene(splashScene);
             splashStage.getIcons().addAll(defaultIcons);
             splashStage.initStyle(StageStyle.TRANSPARENT);
             beforeShowingSplash(splashStage);
             splashStage.show();
-		}
+        }
 
         splashIsShowing.complete(() -> {
             showInitialView();
@@ -171,8 +169,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         final String stageStyle = applicationContext.getEnvironment().getProperty(JavafxConstant.KEY_STAGE_STYLE);
         if (stageStyle != null) {
             GUIState.getStage().initStyle(StageStyle.valueOf(stageStyle.toUpperCase()));
-        }
-        else {
+        } else {
             GUIState.getStage().initStyle(StageStyle.DECORATED);
         }
 
@@ -189,22 +186,21 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         AbstractJavaFxApplicationSupport.applicationContext = ctx;
     }
 
-	/**
-	 * Show view.
-	 *
-	 * @param newView the new view
-	 */
-	public static void showInitialView(final Class<? extends AbstractFxmlView> newView) {
-		try {
-			final AbstractFxmlView view = applicationContext.getBean(newView);
-			view.initFirstView();
-			applyEnvPropsToView();
+    /**
+     * Show view.
+     *
+     * @param newView the new view
+     */
+    public static void showInitialView(final Class<? extends AbstractFxmlView> newView) {
+        try {
+            final AbstractFxmlView view = applicationContext.getBean(newView);
+            view.initFirstView();
+            applyEnvPropsToView();
 
             GUIState.getStage().getIcons().addAll(ICONS);
             GUIState.getStage().show();
 
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
             LOGGER.error("Failed to load application: ", t);
             errorAction.accept(t);
         }
@@ -231,16 +227,16 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
      */
     private static void applyEnvPropsToView() {
         PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_TITLE, String.class,
-                                          GUIState.getStage()::setTitle);
+                GUIState.getStage()::setTitle);
 
         PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_STAGE_WIDTH, Double.class,
-                                          GUIState.getStage()::setWidth);
+                GUIState.getStage()::setWidth);
 
         PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_STAGE_HEIGHT, Double.class,
-                                          GUIState.getStage()::setHeight);
+                GUIState.getStage()::setHeight);
 
         PropertyReaderHelper.setIfPresent(applicationContext.getEnvironment(), JavafxConstant.KEY_STAGE_RESIZABLE, Boolean.class,
-                                          GUIState.getStage()::setResizable);
+                GUIState.getStage()::setResizable);
     }
 
     @Override
@@ -273,12 +269,14 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
 
         launch(appClass, view, new SplashScreen(), args);
     }
+
     /**
      * Launch app.
-     * @deprecated To be more in line with javafx.application please use launch
+     *
      * @param appClass the app class
      * @param view     the view
      * @param args     the args
+     * @deprecated To be more in line with javafx.application please use launch
      */
     @Deprecated
     public static void launchApp(final Class<? extends Application> appClass,
@@ -311,14 +309,15 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
 
         Application.launch(appClass, args);
     }
+
     /**
      * Launch app.
      *
-     * @deprecated To be more in line with javafx.application please use launch
      * @param appClass     the app class
      * @param view         the view
      * @param splashScreen the splash screen
      * @param args         the args
+     * @deprecated To be more in line with javafx.application please use launch
      */
     @Deprecated
     public static void launchApp(final Class<? extends Application> appClass,
@@ -347,9 +346,9 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
 
     public Collection<Image> loadDefaultIcons() {
         return Arrays.asList(new Image(getClass().getResource("/icons/gear_16x16.png").toExternalForm()),
-                             new Image(getClass().getResource("/icons/gear_24x24.png").toExternalForm()),
-                             new Image(getClass().getResource("/icons/gear_36x36.png").toExternalForm()),
-                             new Image(getClass().getResource("/icons/gear_42x42.png").toExternalForm()),
-                             new Image(getClass().getResource("/icons/gear_64x64.png").toExternalForm()));
+                new Image(getClass().getResource("/icons/gear_24x24.png").toExternalForm()),
+                new Image(getClass().getResource("/icons/gear_36x36.png").toExternalForm()),
+                new Image(getClass().getResource("/icons/gear_42x42.png").toExternalForm()),
+                new Image(getClass().getResource("/icons/gear_64x64.png").toExternalForm()));
     }
 }

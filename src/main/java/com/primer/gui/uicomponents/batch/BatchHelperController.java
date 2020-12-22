@@ -54,6 +54,7 @@ import org.springframework.util.StringUtils;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -477,7 +478,7 @@ public class BatchHelperController implements Initializable {
             session = connection.openSession();
             //设置编码
             //根据批次id和批次时间封装日志文件路径 时间为批次时间+1的8位格式
-            session.execCommand("export LC_CTYPE=zh_cn.GB2312;"+"cat -n /home/ocmuser/apps/smcenter-middle/logs/"
+            session.execCommand("export LC_CTYPE=zh_cn.GB2312;" + "cat -n /home/ocmuser/apps/smcenter-middle/logs/"
                     + batchId
                     + LocalDate.parse(
                     subsDate,
@@ -497,7 +498,7 @@ public class BatchHelperController implements Initializable {
                 appentConsole("请先关闭上次打开的日志文件");
                 return;
             }
-            fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogFile), "UTF-8"));
+            fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempLogFile), StandardCharsets.UTF_8));
 
             Writer finalFileWriter = fileWriter;
             lines.forEach(s -> {
@@ -509,7 +510,7 @@ public class BatchHelperController implements Initializable {
                 }
             });
             fileWriter.flush();
-            if (tempLogFile.length()<1) {
+            if (tempLogFile.length() < 1) {
                 appentConsole("读取到批次运行日志文件数据为空！！！");
                 return;
             }

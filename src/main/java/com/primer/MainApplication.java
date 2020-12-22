@@ -4,6 +4,7 @@ package com.primer;
 import com.primer.common.jfxsupport.AbstractJavaFxApplicationSupport;
 import com.primer.gui.main.MainMenuView;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.io.IOException;
  */
 @SpringBootApplication
 @EnableJpaRepositories
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class MainApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) throws IOException {

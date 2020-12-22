@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 public class DubboCallParam {
     public String applicationName;
     public String registryAddress;
-    public String registryGroup;
     public String referenceInterface;
     public String referenceVersion;
     public boolean referenceGeneric;
+    public String referenceGroup;
     public String invokeMethod;
     public String[] invokeMethodParamType;
     public Object[] invokeMethodParam;

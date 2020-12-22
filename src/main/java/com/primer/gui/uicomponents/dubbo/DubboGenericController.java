@@ -7,13 +7,14 @@ import com.primer.common.annotation.FXMLController;
 import com.primer.common.util.AlertUtils;
 import com.primer.common.util.ValidateUtils;
 import com.primer.gui.main.AppBaseController;
-import com.primer.service.DubboService;
+import com.primer.service.impl.DubboServiceImpl;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Window;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +29,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * @author 肖均辉
  */
+@EqualsAndHashCode(callSuper = true)
 @FXMLController
 @Data
 public class DubboGenericController extends AppBaseController implements Initializable {
@@ -43,10 +45,13 @@ public class DubboGenericController extends AppBaseController implements Initial
     @AutoConfig
     @FXML
     public JFXTextField dubboGroup;
+    @AutoConfig
     @FXML
     public JFXTextField dubboVersion;
+    @AutoConfig
     @FXML
     public JFXTextField dubboInterface;
+    @AutoConfig
     @FXML
     public JFXTextField dubboMehod;
     @FXML
@@ -57,7 +62,7 @@ public class DubboGenericController extends AppBaseController implements Initial
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Autowired
-    private DubboService dubboService;
+    private DubboServiceImpl dubboServiceImpl;
 
     @SneakyThrows
     @Override
@@ -120,16 +125,20 @@ public class DubboGenericController extends AppBaseController implements Initial
                             .referenceInterface(dubboInterface.getText())
                             .referenceVersion(dubboVersion.getText())
                             .referenceGeneric(true)
-                            .registryGroup("dubbo")
+                            .referenceGroup("dubbo")
                             .invokeMethod(dubboMehod.getText())
                             .invokeMethodParamType(new String[]{})
                             .invokeMethodParam(new Object[]{}).build();
-                    responseTxt.setText(JSONObject.toJSONString(dubboService.remoteCall(build)));
-                } catch (Exception e) {
+                    responseTxt.clear();
+                    responseTxt.appendText("结果为成功：\n");
+                    responseTxt.appendText(JSONObject.toJSONString(dubboServiceImpl.remoteCall(build)));
+                    responseTxt.setStyle("-fx-font-size: 20;-fx-background-color: #85925f");
+                } catch (Throwable e) {
                     e.printStackTrace();
-                    Platform.runLater(() -> AlertUtils.jfxAlert(callButton, null, e));
-                } catch (Throwable throwable) {
-                    Platform.runLater(() -> AlertUtils.jfxAlert(callButton, null, throwable));
+                    responseTxt.clear();
+                    responseTxt.appendText("结果为异常：\n");
+                    responseTxt.appendText(e.toString());
+                    responseTxt.setStyle("-fx-font-size: 20;-fx-background-color: #cb9992");
                 } finally {
                     Platform.runLater(() -> AlertUtils.hideLoading(windowJfxAlert.get()));
                 }

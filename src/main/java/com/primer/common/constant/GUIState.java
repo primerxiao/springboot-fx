@@ -5,13 +5,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * The enum {@link GUIState} stores Scene and Stage objects as singletons in
  * this VM.
  *
- * @author Felix Roske
- * @author Andreas Jay
+ * @author gcb
  */
 public enum GUIState {
 
@@ -44,6 +44,11 @@ public enum GUIState {
 	 * 后台运行的托盘程序
 	 */
 	private static SystemTray systemTray;
+
+	/**
+	 * 最新打开的场景
+	 */
+	private static Scene currentScene;
 	
 	public static String getTitle() {
 		return title;
@@ -85,4 +90,14 @@ public enum GUIState {
         GUIState.systemTray = systemTray;
     }
 
+	public static Scene getCurrentScene() {
+		if (Objects.isNull(currentScene)) {
+			return GUIState.scene;
+		}
+		return currentScene;
+	}
+
+	public static void setCurrentScene(Scene currentScene) {
+		GUIState.currentScene = currentScene;
+	}
 }
