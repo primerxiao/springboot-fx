@@ -2,8 +2,8 @@ package com.primer.gui.uicomponents.version;
 
 import com.primer.MainApplication;
 import com.primer.common.annotation.AutoConfig;
-import com.primer.common.constant.GitCommitCacheDate;
 import com.primer.common.annotation.FXMLController;
+import com.primer.common.constant.GitCommitCacheDate;
 import com.primer.common.util.AlertUtils;
 import com.primer.entity.GitlabMilestone;
 import com.primer.entity.GitlabMilestoneXhs;
@@ -49,8 +49,8 @@ import java.util.stream.Collectors;
  *
  * @author HIFeng
  */
-@Data
 @FXMLController
+@Data
 public class VersionHelperController extends AppBaseController implements Initializable {
     @FXML
     @AutoConfig
