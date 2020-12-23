@@ -5,12 +5,10 @@ import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Lists;
+import com.primer.common.annotation.FXMLController;
 import com.primer.common.database.DataSourceManager;
 import com.primer.common.database.DataToSql;
-import com.primer.common.annotation.FXMLController;
 import com.primer.common.util.AlertUtils;
-import com.primer.repository.DataExportConfigRepository;
-import com.primer.repository.DataSourceConfigRepository;
 import com.primer.entity.DataExportConfig;
 import com.primer.entity.DataSourceConfig;
 import com.primer.entity.DataSourceConfigPK;
@@ -18,8 +16,9 @@ import com.primer.entity.daybat.BatBatchInfoConfig;
 import com.primer.entity.daybat.BatInstTask;
 import com.primer.entity.daybat.PluginLoadConf;
 import com.primer.entity.daybat.SSubsInfo;
+import com.primer.repository.DataExportConfigRepository;
+import com.primer.repository.DataSourceConfigRepository;
 import com.primer.service.BatchService;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
@@ -36,6 +35,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -50,7 +50,6 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import java.awt.*;
 import java.io.*;
@@ -161,8 +160,7 @@ public class BatchHelperController implements Initializable {
             }
         });
 
-        String java_tool_options = System.getenv("JAVA_TOOL_OPTIONS");
-        if (org.apache.commons.lang3.StringUtils.isEmpty(java_tool_options) || !java_tool_options.contains("-Dfile.encoding=UTF-8")) {
+        if (StringUtils.isEmpty(System.getenv("JAVA_TOOL_OPTIONS")) || !System.getenv("JAVA_TOOL_OPTIONS").contains("-Dfile.encoding=UTF-8")) {
             AlertUtils.alertInfo("监测到您没有配置key为【JAVA_TOOL_OPTIONS】值为【-Dfile.encoding=UTF-8】的环境变量，缺少该变量会导致查看批次日志中文乱码！！！建议您配置该变量");
         }
     }

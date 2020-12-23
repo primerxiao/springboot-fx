@@ -6,6 +6,6 @@ import com.primer.common.jfxsupport.AbstractFxmlView;
 /**
  * @author 肖均辉
  */
-@FXMLView(value = "/fxml/dubbo.fxml")
+@FXMLView(value = "/fxml/DubboGeneric.fxml", title = "Dubbo泛化调用")
 public class DubboGenericView extends AbstractFxmlView {
 }
