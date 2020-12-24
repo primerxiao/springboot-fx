@@ -3,6 +3,11 @@
     src: "/resources/roboto/Roboto-Regular.ttf";
 }
 
+.label{
+    -fx-background-color: #8caa51;
+    -fx-font-size: 15;
+}
+
 /* Burgers Demo */
 
 .jfx-hamburger {
