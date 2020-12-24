@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.version;
+package com.primer.gui.uicomponents.ver;
 
 import com.primer.common.constant.GitCommitCacheDate;
 import com.primer.common.annotation.FXMLController;
@@ -45,7 +45,7 @@ public class RemineController implements Initializable {
     private String newIssuesUrl;
 
     @Autowired
-    private VersionHelperController versionHelperController;
+    private VerHelperController verHelperController;
 
     @SneakyThrows
     @Override
@@ -58,8 +58,8 @@ public class RemineController implements Initializable {
             //登陆界面
             if (Worker.State.SUCCEEDED == newValue && Worker.State.RUNNING == oldValue) {
                 if (webView.getEngine().getLocation().contains("/redmine/login")) {
-                    webView.getEngine().executeScript("$('#username').val('" + versionHelperController.remindAccount.getText() + "');");
-                    webView.getEngine().executeScript("$('#password').val('" + versionHelperController.remindPassword.getText() + "');");
+                    webView.getEngine().executeScript("$('#username').val('" + verHelperController.remindAccount.getText() + "');");
+                    webView.getEngine().executeScript("$('#password').val('" + verHelperController.remindPassword.getText() + "');");
                     webView.getEngine().executeScript("$('#login-submit').click();");
                 }
             }
@@ -92,8 +92,8 @@ public class RemineController implements Initializable {
             }
             System.out.println(newDescript);
             //设置标题$('#issue_subject').val('sfadsf')
-            GitlabMilestone gitlabMilestone = versionHelperController.mileStone.getSelectionModel().getSelectedItem();
-            webView.getEngine().executeScript("$('#issue_subject').val('" + gitlabMilestone.getName() + "发版-" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmmss")) + "-" + versionHelperController.remineCnName.getText() + "');");
+            GitlabMilestone gitlabMilestone = verHelperController.mileStone.getSelectionModel().getSelectedItem();
+            webView.getEngine().executeScript("$('#issue_subject').val('" + gitlabMilestone.getName() + "发版-" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HHmmss")) + "-" + verHelperController.remineCnName.getText() + "');");
             //设置内容$EDITORUI.edui1.editor.setContent('<p>adfafdsad1</p>');
             webView.getEngine().executeScript("$EDITORUI.edui1.editor.setContent(\"" + newDescript.replaceAll("\n", "") + "\");");
             //设置跟踪$('#issue_tracker_id').val('59').trigger('change');

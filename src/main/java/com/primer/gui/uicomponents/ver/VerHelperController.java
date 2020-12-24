@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.version;
+package com.primer.gui.uicomponents.ver;
 
 import com.primer.MainApplication;
 import com.primer.common.annotation.AutoConfig;
@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
  */
 @FXMLController
 @Data
-public class VersionHelperController extends AppBaseController implements Initializable {
+public class VerHelperController extends AppBaseController implements Initializable {
     @FXML
     @AutoConfig
     public TextField gitAccount;

@@ -1,4 +1,4 @@
-package com.primer.gui.uicomponents.version;
+package com.primer.gui.uicomponents.ver;
 
 import com.primer.entity.GitlabProjectConfig;
 import lombok.Data;

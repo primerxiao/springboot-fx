@@ -17,7 +17,6 @@ import java.io.IOException;
  */
 @SpringBootApplication
 @EnableJpaRepositories
-@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class MainApplication extends AbstractJavaFxApplicationSupport {
 
     public static void main(String[] args) throws IOException {

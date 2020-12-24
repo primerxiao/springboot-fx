@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 /**
  * @author gcb
  */
-@Aspect
-@Component
 public class InitializeAop {
 
     @Pointcut("execution(* com.primer.gui.uicomponents..*.test(..))")
@@ -18,7 +16,7 @@ public class InitializeAop {
 
     }
 
-    @After("afterInitialize()")
+    //@After("afterInitialize()")
     public void autoAppConfig(JoinPoint joinPoint) throws Throwable {
         System.out.println(joinPoint.getSignature());
     }
