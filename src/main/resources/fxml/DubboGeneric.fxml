@@ -54,10 +54,10 @@
             </RequiredFieldValidator>
         </validators>
     </JFXTextField>
-    <ToolBar layoutX="402.0" layoutY="9.0" prefHeight="40.0" prefWidth="478.0" style="-fx-background-color: WHITE;">
+    <ToolBar layoutX="402.0" layoutY="9.0" prefHeight="40.0" prefWidth="478.0">
         <JFXButton fx:id="callButton" buttonType="RAISED" ripplerFill="#42bc5c"
-                   style="-fx-font-size:14px;-fx-background-color:#ffffff;" text="发起请求" textAlignment="CENTER"/>
+                   styleClass="JFXButton" text="发起请求" textAlignment="CENTER"/>
         <JFXButton buttonType="RAISED" onAction="#saveAppConfig" ripplerFill="#42bc5c"
-                   style="-fx-font-size:14px;-fx-background-color:WHITE;" text="保存配置"/>
+                   styleClass="JFXButton" text="保存配置"/>
     </ToolBar>
 </AnchorPane>

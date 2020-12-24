@@ -1,9 +1,7 @@
 package com.primer.common.jfxsupport;
 
-import com.primer.MainApplication;
 import com.primer.common.constant.GUIState;
 import com.primer.common.constant.JavafxConstant;
-import com.primer.gui.main.MainMenuView;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -95,7 +93,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
             }
         });
         MainApplication.getStage().hide();*/
-        newScene.getStylesheets().add("/css/jfoenix-components.css");
+        newScene.getStylesheets().add("/style/css/jfoenix-components.css");
         newStage.showAndWait();
 
     }

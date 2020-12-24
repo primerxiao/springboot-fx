@@ -1,0 +1,91 @@
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Bold.ttf';
+    src: url('/style/tff/JetBrainsMono-Bold.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Bold-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-Bold-Italic.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-ExtraBold.ttf';
+    src: url('/style/tff/JetBrainsMono-ExtraBold.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-ExtraBold-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-ExtraBold-Italic.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-ExtraLight.ttf';
+    src: url('/style/tff/JetBrainsMono-ExtraLight.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-ExtraLight-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-ExtraLight-Italic.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-Italic.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Light.ttf';
+    src: url('/style/tff/JetBrainsMono-Light.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Light-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-Light-Italic.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Medium.ttf';
+    src: url('/style/tff/JetBrainsMono-Medium.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Medium-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-Medium-Italic.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-Regular.ttf';
+    src: url('/style/tff/JetBrainsMono-Regular.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-SemiLight.ttf';
+    src: url('/style/tff/JetBrainsMono-SemiLight.ttf');
+}
+
+@font-face {
+    -fx-font-family: 'JetBrainsMono-SemiLight-Italic.ttf';
+    src: url('/style/tff/JetBrainsMono-SemiLight-Italic.ttf');
+}
+
+BorderPane AnchorPane {
+    -fx-spacing: 10;
+    -fx-background-color: #ffffff;
+}
+
+.label_title {
+    -fx-background-color: White;
+    -fx-font-size: 16;
+    -fx-font-family: "JetBrainsMono-Regular.ttf";
+    -fx-spacing: 5;
+}
+
+.JFXButton {
+    -fx-font-family: 'JetBrainsMono-Regular.ttf';
+    -fx-font-size: 12;
+    -fx-background-insets: 2;
+    -fx-background-color: #ffffff;
+    -fx-max-width: 150;
+    -fx-max-height: 50;
+    -fx-spacing: 2;
+}

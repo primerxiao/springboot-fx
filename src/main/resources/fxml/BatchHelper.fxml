@@ -9,14 +9,15 @@
             fx:controller="com.primer.gui.uicomponents.batch.BatchHelperController">
     <center>
         <AnchorPane prefHeight="556.0" prefWidth="390.0" BorderPane.alignment="CENTER">
-            <Label layoutX="14.0" layoutY="-2.0" prefHeight="32.0" prefWidth="75.0" text="控制台"/>
+            <Label styleClass="label_title" layoutX="14.0" layoutY="-2.0" prefHeight="32.0" prefWidth="75.0"
+                   text="控制台"/>
             <JFXTextArea fx:id="console" layoutX="4.0" layoutY="29.0" minHeight="-Infinity" minWidth="-Infinity"
                          prefHeight="534.0" prefWidth="370.0" style="-fx-border-color: WHITE"/>
         </AnchorPane>
     </center>
     <right>
         <AnchorPane fx:id="right" prefHeight="565.0" prefWidth="586.0" BorderPane.alignment="CENTER">
-            <Label layoutY="-2.0" prefHeight="32.0" prefWidth="75.0" text="批次监控"/>
+            <Label styleClass="label_title" layoutY="-2.0" prefHeight="32.0" prefWidth="75.0" text="批次监控"/>
             <WebView fx:id="webView" layoutX="5.0" layoutY="28.0" prefHeight="541.0" prefWidth="571.0"/>
         </AnchorPane>
     </right>
@@ -50,9 +51,10 @@
     </bottom>
     <left>
         <AnchorPane prefHeight="569.0" prefWidth="302.0" BorderPane.alignment="CENTER">
-            <Label layoutX="14.0" layoutY="-2.0" prefHeight="32.0" prefWidth="66.0" text="环境"/>
+            <Label styleClass="label_title" layoutX="14.0" layoutY="-2.0" prefHeight="32.0" prefWidth="66.0" text="环境"/>
             <ListView fx:id="envList" layoutX="14.0" layoutY="30.0" prefHeight="200.0" prefWidth="277.0"/>
-            <Label layoutX="14.0" layoutY="231.0" prefHeight="32.0" prefWidth="75.0" text="批次"/>
+            <Label styleClass="label_title" layoutX="14.0" layoutY="231.0" prefHeight="32.0" prefWidth="75.0"
+                   text="批次"/>
             <ListView fx:id="batchList" layoutX="14.0" layoutY="261.0" prefHeight="301.0" prefWidth="276.0"/>
         </AnchorPane>
     </left>
