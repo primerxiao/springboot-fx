@@ -3,9 +3,15 @@
     src: "/resources/roboto/Roboto-Regular.ttf";
 }
 
+@font-face {
+    font-family: 'JetBrainsMono-Light';
+    src: url('/tff/JetBrainsMono-Light.ttf');
+}
+
 .label{
-    -fx-background-color: #8caa51;
-    -fx-font-size: 15;
+    -fx-background-color: White;
+    -fx-font-size: 22;
+    -fx-font-family: "JetBrainsMono-Light";
 }
 
 /* Burgers Demo */
