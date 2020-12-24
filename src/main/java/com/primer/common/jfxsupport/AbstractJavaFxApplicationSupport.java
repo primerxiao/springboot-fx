@@ -95,6 +95,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
             }
         });
         MainApplication.getStage().hide();*/
+        newScene.getStylesheets().add("/css/jfoenix-components.css");
         newStage.showAndWait();
 
     }
